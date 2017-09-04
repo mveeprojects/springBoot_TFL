@@ -9,12 +9,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-public class GreetingController {
+public class TFLClient {
 
     private static final String template = "Hello %s";
     private final AtomicLong counter = new AtomicLong();
@@ -23,8 +22,8 @@ public class GreetingController {
     private String cachedResponse = "";
 
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    public TFLResponsePOJO greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return new TFLResponsePOJO(counter.incrementAndGet(), String.format(template, name));
     }
 
     @RequestMapping("/callTFL")
@@ -44,9 +43,6 @@ public class GreetingController {
             this.lastCall = 1;
             this.cachedResponse = responseJsonString;
             return responseJsonString;
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
