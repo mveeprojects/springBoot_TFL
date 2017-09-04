@@ -19,13 +19,21 @@ public class GreetingController {
     private static final String template = "Hello %s";
     private final AtomicLong counter = new AtomicLong();
 
+    private int lastCall = 0;
+    private String cachedResponse = "";
+
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 
     @RequestMapping("/callTFL")
-    public String callTFLAPI(){
+    public String callTFLAPI() {
+
+        if (this.lastCall > 0) {
+            return cachedResponse;
+        }
+
         try {
             URL endpoint = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
             HttpURLConnection conn = (HttpURLConnection) endpoint.openConnection();
@@ -33,6 +41,8 @@ public class GreetingController {
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String responseJsonString = br.readLine();
             br.close();
+            this.lastCall = 1;
+            this.cachedResponse = responseJsonString;
             return responseJsonString;
 
         } catch (MalformedURLException e) {
