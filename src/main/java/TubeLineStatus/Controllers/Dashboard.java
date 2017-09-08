@@ -36,13 +36,10 @@ public class Dashboard {
             });
 
             for (TFLResponse t : tflResponse) {
-
-                System.out.println(t.getName());
-                System.out.println(t.getStatus() + "\n");
-
                 LineStatus lineStatus = new LineStatus(t.getName(), t.getStatus());
                 lineStatusList.add(lineStatus);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
