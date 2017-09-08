@@ -1,4 +1,4 @@
-package TubeLineStatus.POJOs.TFLResponsePOJOs;
+package TubeLineStatus.POJOs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,10 +17,6 @@ public class TFLResponse {
 
     public String getName() {
         return name;
-    }
-
-    public List<Map<String, Object>> getLineStatuses() {
-        return lineStatuses;
     }
 
     public String getStatus(){

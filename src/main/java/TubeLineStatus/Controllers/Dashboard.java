@@ -1,7 +1,7 @@
 package TubeLineStatus.Controllers;
 
-import TubeLineStatus.POJOs.TFLResponsePOJOs.LineStatus;
-import TubeLineStatus.POJOs.TFLResponsePOJOs.TFLResponse;
+import TubeLineStatus.POJOs.LineStatus;
+import TubeLineStatus.POJOs.TFLResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.RequestMapping;

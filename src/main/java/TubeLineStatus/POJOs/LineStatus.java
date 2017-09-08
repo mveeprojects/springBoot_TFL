@@ -1,4 +1,4 @@
-package TubeLineStatus.POJOs.TFLResponsePOJOs;
+package TubeLineStatus.POJOs;
 
 public class LineStatus {
     private String lineName;
