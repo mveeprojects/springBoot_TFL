@@ -13,12 +13,11 @@ import java.util.List;
 @RestController
 public class Dashboard {
 
-    private static final String jsonString = "[{\"name\":\"foo\"},{\"name\":\"bar\"}]";
+//    private static final String jsonString = "[{\"name\":\"foo\",\"skills\":[\"java\",\"python\"]},{\"name\":\"bar\",\"skills\":[\"java\",\"python\"]}]";
     private ObjectMapper objectMapper;
 
     public Dashboard() {
         objectMapper = new ObjectMapper();
-
     }
 
     @RequestMapping("/")
