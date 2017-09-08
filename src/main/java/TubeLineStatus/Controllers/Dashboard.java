@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 public class Dashboard {
 
-//    private static final String jsonString = "[{\"name\":\"foo\",\"skills\":[\"java\",\"python\"]},{\"name\":\"bar\",\"skills\":[\"java\",\"python\"]}]";
     private ObjectMapper objectMapper;
 
     public Dashboard() {
@@ -25,7 +24,6 @@ public class Dashboard {
         return callTFLAPI();
     }
 
-
     private List<TFLResponse> callTFLAPI() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
@@ -33,7 +31,8 @@ public class Dashboard {
             });
 
             for (TFLResponse t : tflResponse) {
-                System.out.println(t.toString());
+                System.out.println(t.getName());
+                System.out.println(t.getStatus()+"\n");
             }
             return tflResponse;
 
