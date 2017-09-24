@@ -1,7 +1,7 @@
-package TubeLineStatus.Services;
+package com.mark.tfl.Services;
 
-import TubeLineStatus.POJOs.LineStatus;
-import TubeLineStatus.POJOs.TFLResponse;
+import com.mark.tfl.POJOs.LineStatus;
+import com.mark.tfl.POJOs.TFLResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;

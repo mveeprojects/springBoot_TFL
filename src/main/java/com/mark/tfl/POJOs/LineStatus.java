@@ -1,4 +1,4 @@
-package TubeLineStatus.POJOs;
+package com.mark.tfl.POJOs;
 
 public class LineStatus {
     private String lineName;

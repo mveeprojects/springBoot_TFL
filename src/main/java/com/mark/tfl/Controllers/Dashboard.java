@@ -1,7 +1,7 @@
-package TubeLineStatus.Controllers;
+package com.mark.tfl.Controllers;
 
-import TubeLineStatus.POJOs.LineStatus;
-import TubeLineStatus.Services.TFLStatusService;
+import com.mark.tfl.POJOs.LineStatus;
+import com.mark.tfl.Services.TFLStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
