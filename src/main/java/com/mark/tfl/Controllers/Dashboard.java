@@ -16,10 +16,15 @@ import static org.springframework.util.StringUtils.isEmpty;
 public class Dashboard {
 
     @Autowired
-    private TFLStatusService tflStatusService;
+    private static TFLStatusService tflStatusService;
 
     public Dashboard() {
         tflStatusService = new TFLStatusService();
+    }
+
+    public static void lastScheduledRuntime(String time) {
+        System.out.println("Dashboard - " + time);
+        tflStatusService.scheduleAPICall(time);
     }
 
     @RequestMapping("/")

@@ -19,6 +19,7 @@ public class TFLStatusService {
     private List<LineStatus> allLineStatuses;
     private List<LineStatus> linesWithIssues;
     private List<TFLResponse> tflResp;
+    private String lastRunTime = "";
 
     public TFLStatusService() {
         objectMapper = new ObjectMapper();
@@ -27,13 +28,20 @@ public class TFLStatusService {
         allLineStatuses = new ArrayList<>();
     }
 
-    public List<LineStatus> getLineStatuses() {
+    public void scheduleAPICall(String time) {
         runAllStatusChecks();
+        lastRunTime = time;
+    }
+
+    public String getLastRunTime() {
+        return lastRunTime;
+    }
+
+    public List<LineStatus> getLineStatuses() {
         return allLineStatuses;
     }
 
     public List<LineStatus> getLineIssues() {
-        runAllStatusChecks();
         return linesWithIssues;
     }
 
