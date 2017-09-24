@@ -16,26 +16,25 @@ import static org.junit.Assert.assertThat;
 public class SmokeStepDefs {
 
     private static Logger LOGGER = LoggerFactory.getLogger(SmokeStepDefs.class);
-    private int statusCode = 0;
-    CloseableHttpResponse response;
+    private static CloseableHttpResponse response;
+    private static CloseableHttpClient httpClient;
+    private static String baseUrl = "http://localhost:8080";
 
     @Given("^I call the '(.+)' endpoint locally$")
     public void iCallAnEndpointLocally(String endpoint) throws Throwable {
         LOGGER.info("Calling the {} endpoint locally", "issues");
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        String url = "http://localhost:8080" + endpoint;
-
-        HttpGet request = new HttpGet(url);
+        httpClient = HttpClients.createDefault();
+        HttpGet request = new HttpGet(baseUrl + endpoint);
         response = httpClient.execute(request);
-        String s = response.toString();
-        assertThat(s, not(""));
+        httpClient.close();
+
+        assertThat(response, not(""));
     }
 
     @Then("^I should receive a status code of '(\\d+)'$")
     public void iShouldReceiveAStatusCodeOf(int expectedStatus) throws Throwable {
-        statusCode = response.getStatusLine().getStatusCode();
+        int statusCode = response.getStatusLine().getStatusCode();
         assertThat(statusCode, is(expectedStatus));
     }
 }
