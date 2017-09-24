@@ -37,6 +37,16 @@ public class TFLStatusService {
         return linesWithIssues;
     }
 
+    public LineStatus checkLineStatus(String line) {
+        runAllStatusChecks();
+        for (LineStatus lineStatus : allLineStatuses) {
+            if (lineStatus.getLineName().equalsIgnoreCase(line)) {
+                return lineStatus;
+            }
+        }
+        return new LineStatus("Error", "Line \"" + line + "\" is not recognised");
+    }
+
     private void runAllStatusChecks() {
         if (tflResp.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
             getTFLResponse();
