@@ -18,11 +18,11 @@ public class Dashboard {
 
     @RequestMapping("/")
     public List<LineStatus> allLinesStatuses() throws IOException {
-        return tflStatusService.getAllLineStatuses();
+        return tflStatusService.getLineStatuses();
     }
 
     @RequestMapping("/issues")
     public List<LineStatus> linesWithIssues() {
-        return tflStatusService.getLinesWithIssues();
+        return tflStatusService.getLineIssues();
     }
 }

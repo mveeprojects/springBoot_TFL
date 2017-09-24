@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TFLStatusService {
 
@@ -24,23 +25,25 @@ public class TFLStatusService {
         allLineStatuses = new ArrayList<>();
     }
 
-    public List<LineStatus> getAllLineStatuses() {
-        runAllStatusCheck();
+    public List<LineStatus> getLineStatuses() {
+        runAllStatusChecks();
         return allLineStatuses;
     }
 
-    public List<LineStatus> getLinesWithIssues() {
+    public List<LineStatus> getLineIssues() {
+        runAllStatusChecks();
         return linesWithIssues;
     }
 
-    private void runAllStatusCheck() {
-        if (tflResp.isEmpty() || allLineStatuses.isEmpty()) {
-            callTFLAPI();
-            getLineStatuses();
+    private void runAllStatusChecks() {
+        if (tflResp.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
+            getTFLResponse();
+            getAllLineStatuses();
+            getLinesWithIssues();
         }
     }
 
-    private void callTFLAPI() {
+    private void getTFLResponse() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
             tflResp = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
@@ -50,7 +53,7 @@ public class TFLStatusService {
         }
     }
 
-    private void getLineStatuses() {
+    private void getAllLineStatuses() {
         for (TFLResponse tflResponse : tflResp) {
             LineStatus lineStatus = new LineStatus(tflResponse.getName(), tflResponse.getStatus());
             allLineStatuses.add(lineStatus);
@@ -58,22 +61,12 @@ public class TFLStatusService {
     }
 
 
-//    private List<LineStatus> detectLineIssues() {
-//
-//        if (allLineStatuses.isEmpty()) {
-//            getAllLineStatuses = allLineStatuses();
-//        }
-//
-//        if (linesWithIssues.isEmpty()) {
-//            getAllLineStatuses();
-//        }
-//        for (LineStatus lineStatus : linesWithIssues) {
-//            String status = lineStatus.getLineStatus();
-//            if (!Objects.equals(status, "Good Service")) {
-//                linesWithIssues.add(lineStatus);
-//            }
-//        }
-//        return linesWithIssues;
-//    }
-
+    private void getLinesWithIssues() {
+        for (LineStatus lineStatus : allLineStatuses) {
+            String status = lineStatus.getLineStatus();
+            if (!Objects.equals(status, "Good Service")) {
+                linesWithIssues.add(lineStatus);
+            }
+        }
+    }
 }
