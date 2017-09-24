@@ -4,6 +4,10 @@ This project is aimed at pulling data from the Transport For London API, then ma
 
 So far it retrieves data on the status of all lines from the /status API linked below, maps this to a simple java object of my own and outputs to localhost:8080/ as a list of results in simple JSON. 
 
+_localhost:8080/_ - view status of all lines
+
+_localhost:8080/issues_ - view lines with service issues
+
 ## TFL APIs ##
 
 https://api-portal.tfl.gov.uk/docs

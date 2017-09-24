@@ -62,7 +62,6 @@ public class TFLStatusService {
         }
     }
 
-
     private void getLinesWithIssues() {
         for (LineStatus lineStatus : allLineStatuses) {
             String status = lineStatus.getLineStatus();
