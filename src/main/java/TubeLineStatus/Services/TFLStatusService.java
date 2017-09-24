@@ -4,6 +4,7 @@ import TubeLineStatus.POJOs.LineStatus;
 import TubeLineStatus.POJOs.TFLResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class TFLStatusService {
 
     private ObjectMapper objectMapper;
