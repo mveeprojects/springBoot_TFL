@@ -14,6 +14,6 @@ _localhost:8080/checkline?line=**line_name**_ - check the status of a specific l
 
 https://api-portal.tfl.gov.uk/docs
 
-** Example call **
+**Example call**
 
 https://api.tfl.gov.uk/line/mode/tube/status
