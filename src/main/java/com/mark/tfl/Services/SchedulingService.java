@@ -18,7 +18,7 @@ public class SchedulingService {
     @Scheduled(fixedRate = 300000)
     public void reportCurrentTime() {
         String time = dateFormat.format(new Date());
-        System.out.println("SchedulingService - " + time);
+        log.info("SchedulingService - " + time);
         Dashboard.lastScheduledRuntime(time);
     }
 }
