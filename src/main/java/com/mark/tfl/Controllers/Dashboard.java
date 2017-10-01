@@ -15,11 +15,12 @@ import static org.springframework.util.StringUtils.isEmpty;
 @RestController
 public class Dashboard {
 
-    @Autowired
     private static TFLStatusService tflStatusService;
 
-    public Dashboard() {
+    @Autowired
+    public Dashboard(TFLStatusService tflStatusService) {
         tflStatusService = new TFLStatusService();
+        Dashboard.tflStatusService = tflStatusService;
     }
 
     public static void lastScheduledRuntime(String time) {
