@@ -1,6 +1,5 @@
 # springBoot_TFL
 
-test test test
 
 This project is aimed at pulling data from the Transport For London API, then manipulating it and outputting it according to requests
 
