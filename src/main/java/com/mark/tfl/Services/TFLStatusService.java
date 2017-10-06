@@ -1,7 +1,7 @@
 package com.mark.tfl.Services;
 
-import com.mark.tfl.POJOs.LineStatus;
-import com.mark.tfl.POJOs.TFLResponse;
+import com.mark.tfl.Models.LineStatus;
+import com.mark.tfl.Models.TFLResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,6 @@ public class TFLStatusService {
     private List<LineStatus> allLineStatuses;
     private List<LineStatus> linesWithIssues;
     private List<TFLResponse> tflResp;
-    private String lastRunTime = "";
 
     public TFLStatusService() {
         objectMapper = new ObjectMapper();
@@ -28,13 +27,10 @@ public class TFLStatusService {
         allLineStatuses = new ArrayList<>();
     }
 
-    public void scheduleAPICall(String time) {
+    public void scheduleAPICall() {
+        System.out.println("Updating local data on tube statuses...");
         runAllStatusChecks();
-        lastRunTime = time;
-    }
-
-    public String getLastRunTime() {
-        return lastRunTime;
+        System.out.println("Update complete");
     }
 
     public List<LineStatus> getLineStatuses() {

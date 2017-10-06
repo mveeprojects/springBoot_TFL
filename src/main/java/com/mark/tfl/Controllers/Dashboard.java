@@ -1,6 +1,6 @@
 package com.mark.tfl.Controllers;
 
-import com.mark.tfl.POJOs.LineStatus;
+import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Services.TFLStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
-
 @RestController
 public class Dashboard {
 
@@ -24,7 +23,7 @@ public class Dashboard {
 
     public static void lastScheduledRuntime(String time) {
         System.out.println("Dashboard - " + time);
-        tflStatusService.scheduleAPICall(time);
+        tflStatusService.scheduleAPICall();
     }
 
     @RequestMapping("/")

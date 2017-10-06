@@ -1,4 +1,4 @@
-package com.mark.tfl.POJOs;
+package com.mark.tfl.Models;
 
 public class LineStatus {
     private String lineName;

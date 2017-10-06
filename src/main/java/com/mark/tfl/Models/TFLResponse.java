@@ -1,4 +1,4 @@
-package com.mark.tfl.POJOs;
+package com.mark.tfl.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
