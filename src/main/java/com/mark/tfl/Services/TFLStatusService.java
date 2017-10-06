@@ -4,6 +4,8 @@ import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Models.TFLResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.Objects;
 @Component
 public class TFLStatusService {
 
+    private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
     private ObjectMapper objectMapper;
     private List<LineStatus> allLineStatuses;
     private List<LineStatus> linesWithIssues;
@@ -28,9 +31,9 @@ public class TFLStatusService {
     }
 
     public void scheduleAPICall() {
-        System.out.println("Updating local data on tube statuses...");
+        log.info("Updating local data on tube statuses...");
         runAllStatusChecks();
-        System.out.println("Update complete");
+        log.info("Update complete");
     }
 
     public List<LineStatus> getLineStatuses() {
