@@ -6,6 +6,7 @@ import com.mark.tfl.Services.TFLStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +48,16 @@ public class Dashboard {
             return new LineStatus("Error", "No line name entered");
         }
         return tflStatusService.checkLineStatus(line);
+    }
+
+//    TODO: Use thymeleaf to call views instead of just returning data as json
+//    TODO: Use Model(s) and  'addattribute'
+
+    @RequestMapping("/test")
+    public String test(Model model){
+//        String statuses = tflStatusService.getLineStatuses().toString();
+        String statuses = "allo allo";
+        model.addAttribute("statuses", statuses);
+        return "test";
     }
 }
