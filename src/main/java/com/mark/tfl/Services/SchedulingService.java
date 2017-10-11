@@ -15,7 +15,8 @@ public class SchedulingService {
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 60000)
+//    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron="0 */1 * * * *")
     public void reportCurrentTime() {
         String time = dateFormat.format(new Date());
         log.info("SchedulingService - " + time);
