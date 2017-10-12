@@ -4,6 +4,10 @@ Feature: Run smoke tests against app endpoints
     Given I call the '/' endpoint locally
     Then I should receive a status code of '200'
 
+  Scenario: Calling the allstatuses endpoint, the app should return a http status code of 200
+    When I call the '/allstatuses' endpoint locally
+    Then I should receive a status code of '200'
+
   Scenario: Calling the issues endpoint, the app should return a http status code of 200
     When I call the '/issues' endpoint locally
     Then I should receive a status code of '200'
