@@ -1,13 +1,10 @@
 package com.mark.tfl.Controllers;
 
-import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Services.TFLStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 public class ViewController {
@@ -21,17 +18,8 @@ public class ViewController {
 
     @RequestMapping("/")
     public String homeController(Model model){
-        String pageContent = listStatusesToString(tflStatusService.getLineStatuses());
         model.addAttribute("title", "Home");
-        model.addAttribute("content", pageContent);
+        model.addAttribute("content", tflStatusService.getLineStatuses());
         return "index";
-    }
-
-    private String listStatusesToString(List<LineStatus> lineStatuses){
-        StringBuilder stringBuilder = new StringBuilder();
-        for (LineStatus lineStatus : lineStatuses) {
-            stringBuilder.append(lineStatus.toString());
-        }
-        return stringBuilder.toString();
     }
 }

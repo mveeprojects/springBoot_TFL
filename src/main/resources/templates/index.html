@@ -19,6 +19,15 @@
         </ul>
     </div>
 </nav>
-<p th:text="${content}"></p>
+<table>
+    <tr>
+        <th>Line</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="line : ${content}">
+        <td th:text="${line.lineName}">Onions</td>
+        <td th:text="${line.lineStatus}">2.41</td>
+    </tr>
+</table>
 </body>
 </html>
