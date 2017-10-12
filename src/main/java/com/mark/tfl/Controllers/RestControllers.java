@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
+
 @RestController
 public class RestControllers {
 
@@ -22,7 +23,7 @@ public class RestControllers {
     @Autowired
     private static TFLStatusService tflStatusService;
 
-    public static TFLStatusService getTflStatusService() {
+    static TFLStatusService getTflStatusService() {
         return tflStatusService;
     }
 
