@@ -16,4 +16,12 @@ public class LineStatus {
     public String getLineStatus() {
         return lineStatus;
     }
+
+    @Override
+    public String toString() {
+        return "LineStatus{" +
+                "lineName='" + lineName + '\'' +
+                ", lineStatus='" + lineStatus + '\'' +
+                '}';
+    }
 }

@@ -22,6 +22,10 @@ public class Dashboard {
     @Autowired
     private static TFLStatusService tflStatusService;
 
+    public static TFLStatusService getTflStatusService() {
+        return tflStatusService;
+    }
+
     public Dashboard() {
         tflStatusService = new TFLStatusService();
     }
