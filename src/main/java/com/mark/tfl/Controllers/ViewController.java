@@ -20,15 +20,11 @@ public class ViewController {
         tflStatusService = Dashboard.getTflStatusService();
     }
 
-    @RequestMapping("/test")
-    public String test(Model model){
-        testString = listStatusesToString(tflStatusService.getLineStatuses());
-        model.addAttribute("statuses", testString);
-        return "thymeleaftest";
-    }
-
     @RequestMapping("/")
-    public String test2(){
+    public String homeController(Model model){
+        testString = listStatusesToString(tflStatusService.getLineStatuses());
+        model.addAttribute("title", "Home");
+        model.addAttribute("content", testString);
         return "index";
     }
 
