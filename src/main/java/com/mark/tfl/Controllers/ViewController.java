@@ -10,26 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-public class ViewControllers {
+public class ViewController {
 
-    private static TFLStatusService tflStatusService;
+    private TFLStatusService tflStatusService;
+    private String testString;
 
     @Autowired
-    ViewControllers(){
+    ViewController(){
         tflStatusService = Dashboard.getTflStatusService();
     }
 
     @RequestMapping("/test")
     public String test(Model model){
-        List<LineStatus> lineStatusList = tflStatusService.getLineStatuses();
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (LineStatus lineStatus : lineStatusList) {
-            stringBuilder.append(lineStatus.toString());
-        }
-
-        model.addAttribute("statuses", stringBuilder);
-        return "test";
+        testString = listStatusesToString(tflStatusService.getLineStatuses());
+        model.addAttribute("statuses", testString);
+        return "thymeleaftest";
     }
 
+    private String listStatusesToString(List<LineStatus> lineStatuses){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (LineStatus lineStatus : lineStatuses) {
+            stringBuilder.append(lineStatus.toString());
+        }
+        return stringBuilder.toString();
+    }
 }
