@@ -13,7 +13,6 @@ import java.util.List;
 public class ViewController {
 
     private TFLStatusService tflStatusService;
-    private String testString;
 
     @Autowired
     ViewController(){
@@ -22,9 +21,9 @@ public class ViewController {
 
     @RequestMapping("/")
     public String homeController(Model model){
-        testString = listStatusesToString(tflStatusService.getLineStatuses());
+        String pageContent = listStatusesToString(tflStatusService.getLineStatuses());
         model.addAttribute("title", "Home");
-        model.addAttribute("content", testString);
+        model.addAttribute("content", pageContent);
         return "index";
     }
 
