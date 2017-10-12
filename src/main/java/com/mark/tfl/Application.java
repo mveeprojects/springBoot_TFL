@@ -1,6 +1,6 @@
 package com.mark.tfl;
 
-import com.mark.tfl.Controllers.Dashboard;
+import com.mark.tfl.Controllers.RestControllers;
 import com.mark.tfl.Services.SchedulingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
         String time = dateFormat.format(new Date());
         log.info("App start time - " + time);
-        Dashboard.lastScheduledRuntime(time);
+        RestControllers.lastScheduledRuntime(time);
 
     }
 }

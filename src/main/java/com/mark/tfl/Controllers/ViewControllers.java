@@ -7,13 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ViewController {
+public class ViewControllers {
 
     private TFLStatusService tflStatusService;
 
     @Autowired
-    ViewController(){
-        tflStatusService = Dashboard.getTflStatusService();
+    ViewControllers(){
+        tflStatusService = RestControllers.getTflStatusService();
     }
 
     @RequestMapping("/")

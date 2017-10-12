@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
 @RestController
-public class Dashboard {
+public class RestControllers {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
 
@@ -26,7 +26,7 @@ public class Dashboard {
         return tflStatusService;
     }
 
-    public Dashboard() {
+    public RestControllers() {
         tflStatusService = new TFLStatusService();
     }
 
