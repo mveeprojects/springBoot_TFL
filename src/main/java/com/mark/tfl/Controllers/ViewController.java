@@ -27,6 +27,11 @@ public class ViewController {
         return "thymeleaftest";
     }
 
+    @RequestMapping("/")
+    public String test2(){
+        return "index";
+    }
+
     private String listStatusesToString(List<LineStatus> lineStatuses){
         StringBuilder stringBuilder = new StringBuilder();
         for (LineStatus lineStatus : lineStatuses) {

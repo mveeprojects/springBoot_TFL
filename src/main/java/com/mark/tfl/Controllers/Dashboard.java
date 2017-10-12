@@ -35,7 +35,7 @@ public class Dashboard {
         tflStatusService.scheduleAPICall();
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/allstatuses")
     public List<LineStatus> allLinesStatuses() throws IOException {
         return tflStatusService.getLineStatuses();
     }
