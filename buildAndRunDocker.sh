@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source bashCommonFunctions.sh
+source commonBashFunctions.sh
 
 echo "Pulling down image of Alpine OS"
 docker pull openjdk:8-jdk-alpine
