@@ -30,4 +30,4 @@ echo "Docker image created with IMAGE ID: $IMAGEID"
 stopAppIfRunning
 
 echo "app is now being started up"
-docker run -d -p888:8080 --name tflapp $IMAGEID
+docker run -d -p80:8080 --name tflapp $IMAGEID
