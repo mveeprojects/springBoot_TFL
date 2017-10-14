@@ -15,6 +15,17 @@ _localhost:8080/checkline?line=**line_name**_ - check the status of a specific l
 
 https://api-portal.tfl.gov.uk/docs
 
-**Example call**
+**Example call to TFL status endpoint**
 
 https://api.tfl.gov.uk/line/mode/tube/status
+
+
+### Docker
+
+To build a docker image of this project locally I've set up a Dockerfile and accompanying shell script in the project root directory.
+
+Therefore to create your own locally runnable docker image just run '__sh dockerbuild.sh__' from the command line, this will also run the 'docker images' command so you can grab the IMAGE ID needed to run the image (next step)
+
+Then to run the container on a localhost port (e.g. port 666) run '__docker run -d -p666:8080 IMAGE_ID__' (this will map localhost:666 to access the containers port 8080). Now open http://localhost:666 in your browser to see it in all its majesty.
+
+
