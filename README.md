@@ -25,7 +25,7 @@ https://api.tfl.gov.uk/line/mode/tube/status
 To build and run a docker image of this project I've set up a Dockerfile and accompanying shell script in the project root directory.
 
 Running '__sh buildandrundocker.sh__' from the command line does the following:
-* downloads Alpine OS
-* builds a new image of the application
-* stops and removes any other locally running containers of this application if there are any
-* runs a new container based on the new image on port 80
+* Downloads Alpine OS
+* Builds a new image of the application
+* Stops and removes any other locally running containers of this application if there are any
+* Runs a new container based on the new image on port 80
