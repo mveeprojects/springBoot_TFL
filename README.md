@@ -22,6 +22,9 @@ https://api.tfl.gov.uk/line/mode/tube/status
 
 ### Docker
 
+**Note: Deploying this application via Docker is considered 'prod mode' therefore the port used to access it via HTTP is 80 rather than 8080 in 'dev mode' above i.e. if not running just in the IDE.**
+
+
 To build and run a docker image of this project I've set up a Dockerfile and accompanying shell script in the project root directory.
 
 Running '__sh buildandrundocker.sh__' from the command line does the following:
