@@ -4,15 +4,23 @@ function stopAppIfRunning (){
     dockerProcesses=`docker ps`
     containerID=$(echo "$dockerProcesses" | grep "tflapp" | awk '{print $1}')
     if [ -z ${containerID} ] ; then
-        echo "app not currently running"
+        echo ""
+        echo "*************************************************************"
+        echo "App not currently running"
+        echo "*************************************************************"
+        echo ""
     else
-        echo "app is currently running will stop and remove container now"
-        echo "container ID is: $containerID"
+        echo ""
+        echo "*************************************************************"
+        echo "App is currently running, stopping and removing container now"
+        echo "*************************************************************"
+        echo "Container ID is: $containerID"
 
-        echo "stopping old container"
+        echo "Stopping old container"
         docker stop ${containerID}
 
-        echo "removing old container"
+        echo "Removing old container"
         docker rm ${containerID}
+        echo ""
     fi
 }
