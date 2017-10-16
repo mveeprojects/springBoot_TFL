@@ -20,18 +20,8 @@
         <ul class="nav navbar-nav">
             <li><a href="/allstatuses">All Lines</a></li>
             <li><a href="/issues">Line Issues</a></li>
-            <!-- TODO: Trying to figure out how to make a dynamic dropdown menu -->
-            <!--<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Check a line<span class="caret"></span></a>-->
-                <!--<ul th:each="line : ${content}">-->
-                    <!--<li th:text="${line.lineName}"><a href="#"></a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-
-            <!-- Try this when home -->
-            <!--<select>-->
-                <!--<option th:each="thing: ${content}" th:value="${thing.fieldname}"th:text="${thing.fieldname}">defaulttext</option>-->
-            <!--</select>-->
-
+            <li th:each="line : ${content}" th:value="${line.lineName}"><a
+                    th:href="@{/checkline(line=${line.lineName})}"><span th:text="${line.lineName}"></span></a></li>
         </ul>
     </div>
 </nav>
