@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class ModelsTests {
+public class ModelTests {
 
     @Test
     public void newLineStatusTest() {
@@ -25,5 +25,4 @@ public class ModelsTests {
         assertNotEquals(null, tflStatusService.getLineStatuses());
         assertNotEquals(null, tflStatusService.getLineIssues());
     }
-
 }
