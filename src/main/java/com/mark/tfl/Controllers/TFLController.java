@@ -16,14 +16,14 @@ import java.io.IOException;
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Controller
-public class RestControllers {
+public class TFLController {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
 
     @Autowired
     private static TFLStatusService tflStatusService;
 
-    public RestControllers() {
+    public TFLController() {
         tflStatusService = new TFLStatusService();
     }
 
