@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function stopAppIfRunning (){
-    dockerProcesses=`docker ps`
+    dockerProcesses=`docker ps -a`
     containerID=$(echo "$dockerProcesses" | grep "tflapp" | awk '{print $1}')
     if [ -z ${containerID} ] ; then
         echo ""
