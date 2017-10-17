@@ -27,10 +27,6 @@ public class RestControllers {
         tflStatusService = new TFLStatusService();
     }
 
-    public static int add(int a, int b){
-        return a + b;
-    }
-
     public static void lastScheduledRuntime(String time) {
         log.info("Dashboard - " + time);
         tflStatusService.scheduleAPICall();
