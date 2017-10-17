@@ -30,6 +30,14 @@ public class TFLStatusService {
         allLineStatuses = new ArrayList<>();
     }
 
+    public void setAllLineStatuses(List<LineStatus> allLineStatuses) {
+        this.allLineStatuses = allLineStatuses;
+    }
+
+    public void setLinesWithIssues(List<LineStatus> linesWithIssues) {
+        this.linesWithIssues = linesWithIssues;
+    }
+
     public void scheduleAPICall() {
         log.info("Updating local data on tube statuses...");
         runAllStatusChecks();
@@ -73,18 +81,22 @@ public class TFLStatusService {
     }
 
     private void getAllLineStatuses() {
+        List<LineStatus> newLineStatuses = new ArrayList<>();
         for (TFLResponse tflResponse : tflResp) {
             LineStatus lineStatus = new LineStatus(tflResponse.getName(), tflResponse.getStatus());
-            allLineStatuses.add(lineStatus);
+            newLineStatuses.add(lineStatus);
         }
+        setAllLineStatuses(newLineStatuses);
     }
 
     private void getLinesWithIssues() {
+        List<LineStatus> newlinesWithIssues = new ArrayList<>();
         for (LineStatus lineStatus : allLineStatuses) {
             String status = lineStatus.getLineStatus();
             if (!Objects.equals(status, "Good Service")) {
-                linesWithIssues.add(lineStatus);
+                newlinesWithIssues.add(lineStatus);
             }
         }
+        setLinesWithIssues(newlinesWithIssues);
     }
 }

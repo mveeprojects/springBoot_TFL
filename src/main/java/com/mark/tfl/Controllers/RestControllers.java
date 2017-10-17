@@ -6,26 +6,22 @@ import com.mark.tfl.Services.TFLStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
-@RestController
+@Controller
 public class RestControllers {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
 
     @Autowired
     private static TFLStatusService tflStatusService;
-
-    static TFLStatusService getTflStatusService() {
-        return tflStatusService;
-    }
 
     public RestControllers() {
         tflStatusService = new TFLStatusService();
@@ -36,21 +32,31 @@ public class RestControllers {
         tflStatusService.scheduleAPICall();
     }
 
+    @RequestMapping("/")
+    public String homeController(Model model){
+        model.addAttribute("title", "Home");
+        model.addAttribute("content", tflStatusService.getLineStatuses());
+        return "index";
+    }
+
     @RequestMapping("/allstatuses")
-    public List<LineStatus> allLinesStatuses() throws IOException {
-        return tflStatusService.getLineStatuses();
+    public String allLinesStatuses(Model model) throws IOException {
+        model.addAttribute("content", tflStatusService.getLineStatuses());
+        return "jsonoutput";
     }
 
     @RequestMapping("/issues")
-    public List<LineStatus> linesWithIssues() {
-        return tflStatusService.getLineIssues();
+    public String linesWithIssues(Model model) {
+        model.addAttribute("content", tflStatusService.getLineIssues());
+        return "jsonoutput";
     }
 
     @RequestMapping("/checkline")
-    public LineStatus checkLineStatus(@RequestParam("line") String line) {
+    public String checkLineStatus(@RequestParam("line") String line, Model model) {
         if (isEmpty(line)) {
-            return new LineStatus("Error", "No line name entered");
+            model.addAttribute(new LineStatus("Error", "No line name entered"));
         }
-        return tflStatusService.checkLineStatus(line);
+        model.addAttribute("content", tflStatusService.checkLineStatus(line));
+        return "jsonoutput";
     }
 }
