@@ -11,11 +11,13 @@ public class ModelTests {
 
     @Test
     public void newLineStatusTest() {
-        LineStatus lineStatus = new LineStatus("sampleStation", "SampleStatus");
+        String expectedLine = "sampleLine";
+        String expectedStatus = "sampleStatus";
+        LineStatus lineStatus = new LineStatus(expectedLine, expectedStatus);
         String linename = lineStatus.getLineName();
         String linestatus = lineStatus.getLineStatus();
-        assertEquals("sampleStation", linename);
-        assertEquals("SampleStatus", linestatus);
+        assertEquals(expectedLine, linename);
+        assertEquals(expectedStatus, linestatus);
     }
 
     @Test

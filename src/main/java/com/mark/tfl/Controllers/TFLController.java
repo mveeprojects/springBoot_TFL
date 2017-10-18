@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Controller
@@ -39,16 +37,10 @@ public class TFLController {
         return "index";
     }
 
-    @RequestMapping("/allstatuses")
-    public String allLinesStatuses(Model model) throws IOException {
-        model.addAttribute("content", tflStatusService.getLineStatuses());
-        return "jsonoutput";
-    }
-
     @RequestMapping("/issues")
     public String linesWithIssues(Model model) {
         model.addAttribute("content", tflStatusService.getLineIssues());
-        return "jsonoutput";
+        return "index";
     }
 
     @RequestMapping("/checkline")

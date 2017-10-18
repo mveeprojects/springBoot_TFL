@@ -21,12 +21,12 @@ public class TFLStatusService {
     private ObjectMapper objectMapper;
     private List<LineStatus> allLineStatuses;
     private List<LineStatus> linesWithIssues;
-    private List<TFLResponse> tflResp;
+    private List<TFLResponse> tflRawLineStatuses;
 
     public TFLStatusService() {
         objectMapper = new ObjectMapper();
         linesWithIssues = new ArrayList<>();
-        tflResp = new ArrayList<>();
+        tflRawLineStatuses = new ArrayList<>();
         allLineStatuses = new ArrayList<>();
     }
 
@@ -45,10 +45,16 @@ public class TFLStatusService {
     }
 
     public List<LineStatus> getLineStatuses() {
+        if (allLineStatuses == null) {
+            scheduleAPICall();
+        }
         return allLineStatuses;
     }
 
     public List<LineStatus> getLineIssues() {
+        if (linesWithIssues == null) {
+            scheduleAPICall();
+        }
         return linesWithIssues;
     }
 
@@ -63,7 +69,7 @@ public class TFLStatusService {
     }
 
     private void runAllStatusChecks() {
-        if (tflResp.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
+        if (tflRawLineStatuses.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
             getTFLResponse();
             getAllLineStatuses();
             getLinesWithIssues();
@@ -73,7 +79,7 @@ public class TFLStatusService {
     private void getTFLResponse() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
-            tflResp = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
+            tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,7 +88,7 @@ public class TFLStatusService {
 
     private void getAllLineStatuses() {
         List<LineStatus> newLineStatuses = new ArrayList<>();
-        for (TFLResponse tflResponse : tflResp) {
+        for (TFLResponse tflResponse : tflRawLineStatuses) {
             LineStatus lineStatus = new LineStatus(tflResponse.getName(), tflResponse.getStatus());
             newLineStatuses.add(lineStatus);
         }
