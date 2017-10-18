@@ -9,8 +9,6 @@ _localhost:8080/_ - view status of all lines
 
 _localhost:8080/issues_ - view lines with service issues
 
-_localhost:8080/checkline?line=**line_name**_ - check the status of a specific line
-
 **TFL APIs**
 
 https://api-portal.tfl.gov.uk/docs
