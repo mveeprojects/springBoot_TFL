@@ -32,3 +32,12 @@ Running '__./init.sh__' from the command line does the following:
 * Builds a new image of the application
 * Stops and removes any other locally running containers of this application if there are any
 * Runs a new container based on the new image on port 80
+
+
+### Gatling Performance Tests
+
+To run the gatling performance tests use the following command at the root of the project:
+
+__mvn clean gatling:execute__
+
+The pom.xml has been edited so that the  gatling tests are not ran on deployment (see Docker section above), however this can be re-enabled by un-commenting the executions section of the gatling-maven-plugin. 
