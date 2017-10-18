@@ -12,6 +12,12 @@ $(document).ready(function(){
     });
 });
 
+//    Requires the below plugin to work - see index.html
+//    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 function showIndividualLineStatus(lineName, lineStatus) {
-    alert("Line: " + lineName + "\n" + "Status: " + lineStatus);
+    if(lineStatus == "Good Service"){
+        swal(lineName, lineStatus, "success");
+    } else {
+        swal(lineName, lineStatus, "error");
+    }
 }
