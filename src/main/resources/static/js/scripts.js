@@ -10,7 +10,9 @@ $(document).ready(function(){
             $(this).css('color','green');
         }
     });
+
 });
+
 
 //    Requires the below plugin to work - see index.html
 //    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
