@@ -47,10 +47,12 @@
 
     <table class="table table-striped table-hover table-responsive" id="jsonTable">
         <tr>
-            <th>Line</th>
-            <th>Status</th>
+            <th class="col-xs-2">Day/Night Service</th>
+            <th class="col-xs-5">Line</th>
+            <th class="col-xs-5">Status</th>
         </tr>
         <tr th:each="line : ${tablecontent}">
+            <td><img th:src="${line.nightTube ? 'images/daynight.png' : 'images/day.png'}" style="width:25px; height:auto;" /></td>
             <td th:text="${line.lineName}"></td>
             <td class="status" th:text="${line.lineStatus}"></td>
         </tr>
