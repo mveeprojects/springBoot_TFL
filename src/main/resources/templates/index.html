@@ -52,7 +52,7 @@
             <th class="col-xs-5">Status</th>
         </tr>
         <tr th:each="line : ${tablecontent}">
-            <td><img th:src="${line.nightTube ? 'images/daynight.png' : 'images/day.png'}" style="width:25px; height:auto;" /></td>
+            <td><img th:src="${line.nightTube ? 'images/daynight.png' : 'images/day.png'}" align="middle" style="width:20px; height:auto;" /></td>
             <td th:text="${line.lineName}"></td>
             <td class="status" th:text="${line.lineStatus}"></td>
         </tr>
