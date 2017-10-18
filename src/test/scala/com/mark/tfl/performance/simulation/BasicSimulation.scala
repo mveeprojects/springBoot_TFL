@@ -16,7 +16,7 @@ class BasicSimulation extends Simulation {
   val userMicroserviceScenarios = List(
     //PostAndGetUser.postAndGetUser.inject(atOnceUsers(1)),
 
-    FirstTest.getUsers.inject(
+    FirstTest.getLineIssues.inject(
       atOnceUsers(1),
       //rampUsers(100) over(1 seconds),
       //constantUsersPerSec(1000) during(15 seconds)

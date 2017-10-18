@@ -6,11 +6,11 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
 object FirstTest {
-  val getUsersHttp: HttpRequestBuilder = http("get all users")
+  val getAllLineIssues: HttpRequestBuilder = http("get all line issues")
     .get("/")
     .check(status is 200)
 
-  val getUsers: ScenarioBuilder = scenario("Get All users")
-    .exec(getUsersHttp)
+  val getLineIssues: ScenarioBuilder = scenario("Get all line issues")
+    .exec(getAllLineIssues)
 
 }
