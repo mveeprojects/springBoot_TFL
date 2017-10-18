@@ -1,6 +1,5 @@
 package com.mark.tfl.Controllers;
 
-import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Services.SchedulingService;
 import com.mark.tfl.Services.TFLStatusService;
 import org.slf4j.Logger;
@@ -9,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import static org.springframework.util.StringUtils.isEmpty;
 
 @Controller
 public class TFLController {
@@ -44,14 +40,5 @@ public class TFLController {
         model.addAttribute("tablecontent", tflStatusService.getLineIssues());
         model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
         return "index";
-    }
-
-    @RequestMapping("/checkline")
-    public String checkLineStatus(@RequestParam("line") String line, Model model) {
-        if (isEmpty(line)) {
-            model.addAttribute(new LineStatus("Error", "No line name entered"));
-        }
-        model.addAttribute("content", tflStatusService.checkLineStatus(line));
-        return "jsonoutput";
     }
 }
