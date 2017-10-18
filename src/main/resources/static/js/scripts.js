@@ -11,3 +11,7 @@ $(document).ready(function(){
         }
     });
 });
+
+function showIndividualLineStatus(lineName, lineStatus) {
+    alert("Line: " + lineName + "\n" + "Status: " + lineStatus);
+}

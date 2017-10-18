@@ -99,7 +99,7 @@ public class TFLStatusService {
         List<LineStatus> newlinesWithIssues = new ArrayList<>();
         for (LineStatus lineStatus : allLineStatuses) {
             String status = lineStatus.getLineStatus();
-            if (!Objects.equals(status, "Good Service")) {
+            if (!Objects.equals(status, "Good Service") && !Objects.equals(status, "Minor Delays")) {
                 newlinesWithIssues.add(lineStatus);
             }
         }

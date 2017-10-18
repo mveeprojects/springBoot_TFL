@@ -33,13 +33,16 @@ public class TFLController {
     @RequestMapping("/")
     public String homeController(Model model){
         model.addAttribute("title", "Home");
-        model.addAttribute("content", tflStatusService.getLineStatuses());
+        model.addAttribute("tablecontent", tflStatusService.getLineStatuses());
+        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
         return "index";
     }
 
     @RequestMapping("/issues")
     public String linesWithIssues(Model model) {
-        model.addAttribute("content", tflStatusService.getLineIssues());
+        model.addAttribute("title", "Issues");
+        model.addAttribute("tablecontent", tflStatusService.getLineIssues());
+        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
         return "index";
     }
 
