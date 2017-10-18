@@ -36,4 +36,6 @@ To run the gatling performance tests use the following command at the root of th
 
 __mvn clean gatling:execute__
 
-The pom.xml has been edited so that the  gatling tests are not ran on deployment (see Docker section above), however this can be enabled by uncommenting the executions section of the gatling-maven-plugin. 
+The pom.xml has been edited so that the  gatling tests are not ran on deployment (see Docker section above), however this can be enabled by uncommenting the executions section of the gatling-maven-plugin.
+
+__Note:__ Whether or not the performance tests are enabled the JUnit and Cucumber tests will run as normal (these are not effected by the above config alteration in the pom.xml).
