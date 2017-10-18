@@ -12,9 +12,6 @@ _localhost:8080/issues_ - view lines with service issues
 **TFL APIs**
 
 https://api-portal.tfl.gov.uk/docs
-
-**Example call to TFL status endpoint**
-
 https://api.tfl.gov.uk/line/mode/tube/status
 
 
