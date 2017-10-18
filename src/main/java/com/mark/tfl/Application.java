@@ -23,6 +23,5 @@ public class Application {
         String time = dateFormat.format(new Date());
         log.info("App start time - " + time);
         TFLController.lastScheduledRuntime(time);
-
     }
 }

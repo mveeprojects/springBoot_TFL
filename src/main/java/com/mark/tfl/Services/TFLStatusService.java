@@ -30,11 +30,11 @@ public class TFLStatusService {
         allLineStatuses = new ArrayList<>();
     }
 
-    public void setAllLineStatuses(List<LineStatus> allLineStatuses) {
+    private void setAllLineStatuses(List<LineStatus> allLineStatuses) {
         this.allLineStatuses = allLineStatuses;
     }
 
-    public void setLinesWithIssues(List<LineStatus> linesWithIssues) {
+    private void setLinesWithIssues(List<LineStatus> linesWithIssues) {
         this.linesWithIssues = linesWithIssues;
     }
 
@@ -56,16 +56,6 @@ public class TFLStatusService {
             scheduleAPICall();
         }
         return linesWithIssues;
-    }
-
-    public LineStatus checkLineStatus(String line) {
-        runAllStatusChecks();
-        for (LineStatus lineStatus : allLineStatuses) {
-            if (lineStatus.getLineName().equalsIgnoreCase(line)) {
-                return lineStatus;
-            }
-        }
-        return new LineStatus("Error", "Line \"" + line + "\" is not recognised");
     }
 
     private void runAllStatusChecks() {
