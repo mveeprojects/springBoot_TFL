@@ -1,6 +1,5 @@
 package com.mark.tfl.performance.util
 
-
 object Headers {
   val commonHeader = Map(
     "Accept" -> "application/json, text/javascript, */*; q=0.01",
