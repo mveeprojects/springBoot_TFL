@@ -8,7 +8,7 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 
 import scala.concurrent.duration._
 
-class BasicSimulation extends Simulation {
+class EndpointLoadSimulations extends Simulation {
 
   val httpConf: HttpProtocolBuilder = http.baseURL(Environment.baseURL)
     .headers(Headers.commonHeader)
