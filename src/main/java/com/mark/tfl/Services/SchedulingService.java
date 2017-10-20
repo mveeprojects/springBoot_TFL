@@ -6,19 +6,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static com.mark.tfl.Services.TimeService.getCurrentTime;
 
 @Component
 public class SchedulingService {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 //    @Scheduled(fixedRate = 60000)
     @Scheduled(cron="0 */1 * * * *")
     public void reportCurrentTime() {
-        String time = dateFormat.format(new Date());
+        String time = getCurrentTime();
         log.info("SchedulingService - " + time);
         TFLController.lastScheduledRuntime(time);
     }
