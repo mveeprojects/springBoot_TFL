@@ -15,10 +15,9 @@ public class TFLController {
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
 
     @Autowired
-    private static TFLStatusService tflStatusService;
+    private static TFLStatusService tflStatusService = new TFLStatusService();
 
     public TFLController() {
-        tflStatusService = new TFLStatusService();
     }
 
     public static void lastScheduledRuntime(String time) {
@@ -27,7 +26,7 @@ public class TFLController {
     }
 
     @RequestMapping("/")
-    public String homeController(Model model){
+    public String homeController(Model model) {
         model.addAttribute("title", "Home");
         model.addAttribute("tablecontent", tflStatusService.getLineStatuses());
         model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
