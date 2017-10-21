@@ -17,9 +17,6 @@ public class TFLController {
     @Autowired
     private static TFLStatusService tflStatusService = new TFLStatusService();
 
-    public TFLController() {
-    }
-
     public static void lastScheduledRuntime(String time) {
         log.info("Dashboard - " + time);
         tflStatusService.scheduleAPICall();

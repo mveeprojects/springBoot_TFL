@@ -8,7 +8,7 @@ public class LineStatus {
     public LineStatus(String lineName, String lineStatus) {
         this.lineName = lineName;
         this.lineStatus = lineStatus;
-        this.nightTube = isNightTube(lineName);
+        this.nightTube = determineNightTube(lineName);
     }
 
     public String getLineName() {
@@ -19,11 +19,11 @@ public class LineStatus {
         return lineStatus;
     }
 
-    public boolean isNightTube() {
+    public boolean getNightTube() {
         return nightTube;
     }
 
-    private boolean isNightTube(String lineName) {
+    private boolean determineNightTube(String lineName) {
         switch (lineName) {
             case "Victoria":
             case "Central":
