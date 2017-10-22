@@ -1,4 +1,4 @@
-package com.mark.tfl.acceptance;
+package com.mark.tfl.StepDefs;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

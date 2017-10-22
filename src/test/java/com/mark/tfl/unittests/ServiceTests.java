@@ -27,6 +27,18 @@ public class ServiceTests {
     }
 
     @Test
+    public void refreshLineIssuesTest(){
+        TFLStatusService tflStatusService = new TFLStatusService();
+        List<LineStatus> oldIssues = tflStatusService.getLineIssues();
+
+        tflStatusService.scheduleAPICall();
+        List<LineStatus> newIssues = tflStatusService.getLineIssues();
+
+        Assert.assertEquals(emptyList(), oldIssues);
+        Assert.assertNotEquals(emptyList(), newIssues);
+    }
+
+    @Test
     public void checkTimeTest(){
         String actual = getCurrentTime();
 
