@@ -27,4 +27,15 @@ public class ModelTests {
         assertNotEquals(null, tflStatusService.getLineStatuses());
         assertNotEquals(null, tflStatusService.getLineIssues());
     }
+
+    @Test
+    public void nightTubeTest(){
+        LineStatus lineStatus = new LineStatus("Victoria", "testStatus");
+        boolean actual = lineStatus.isNightTube();
+        assertEquals(true, actual);
+
+        lineStatus = new LineStatus("Metropolitan", "testStatus");
+        boolean actual1 = lineStatus.isNightTube();
+        assertEquals(false, actual1);
+    }
 }

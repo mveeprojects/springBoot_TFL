@@ -19,7 +19,7 @@ public class LineStatus {
         return lineStatus;
     }
 
-    public boolean getNightTube() {
+    public boolean isNightTube() {
         return nightTube;
     }
 
