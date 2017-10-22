@@ -1,4 +1,4 @@
-package com.mark.tfl.performance.util
+package com.mark.tfl.util
 
 object Environment {
   val baseURL: String = scala.util.Properties.envOrElse("baseURL", "http://localhost:80/")

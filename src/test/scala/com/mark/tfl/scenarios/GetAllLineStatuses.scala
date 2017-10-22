@@ -1,4 +1,4 @@
-package com.mark.tfl.performance.scenarios
+package com.mark.tfl.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder

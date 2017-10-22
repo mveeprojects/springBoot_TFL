@@ -1,9 +1,9 @@
-package com.mark.tfl.performance.simulation
+package com.mark.tfl.simulation
 
-import com.mark.tfl.performance.scenarios.{GetAllLineIssues, GetAllLineStatuses}
-import com.mark.tfl.performance.util.{Environment, Headers}
-import io.gatling.http.Predef._
+import com.mark.tfl.scenarios.{GetAllLineIssues, GetAllLineStatuses}
+import com.mark.tfl.util.{Environment, Headers}
 import io.gatling.core.Predef._
+import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
 import scala.concurrent.duration._

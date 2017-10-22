@@ -1,4 +1,4 @@
-package com.mark.tfl.unittests;
+package com.mark.tfl;
 
 import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Services.TFLStatusService;
