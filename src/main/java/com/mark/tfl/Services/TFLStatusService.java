@@ -69,7 +69,7 @@ public class TFLStatusService {
     private void getTFLResponse() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
-            tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
+            this.tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
             });
         } catch (IOException e) {
             e.printStackTrace();
