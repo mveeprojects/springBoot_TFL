@@ -43,7 +43,7 @@ public class ServiceTests {
         String actual = getCurrentTime();
 
         LocalTime time = LocalTime.now();
-        String expected = time.format(DateTimeFormatter.ofPattern("HH:mm a"));
+        String expected = time.format(DateTimeFormatter.ofPattern("h:mm a"));
 
         Assert.assertEquals(expected, actual);
     }

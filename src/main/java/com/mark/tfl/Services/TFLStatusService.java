@@ -17,7 +17,7 @@ import java.util.Objects;
 @Component
 public class TFLStatusService {
 
-    private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
+    private static final Logger log = LoggerFactory.getLogger(TFLStatusService.class);
     private ObjectMapper objectMapper;
     private List<LineStatus> allLineStatuses;
     private List<LineStatus> linesWithIssues;
@@ -69,7 +69,7 @@ public class TFLStatusService {
     private void getTFLResponse() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
-            this.tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
+            tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
             });
         } catch (IOException e) {
             e.printStackTrace();

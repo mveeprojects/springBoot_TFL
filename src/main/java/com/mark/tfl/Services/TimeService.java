@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class TimeService {
 
     public static String getCurrentTime() {
-        return getCurrentLocalTime().format(DateTimeFormatter.ofPattern("HH:mm a"));
+        return getCurrentLocalTime().format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
     private static LocalTime getCurrentLocalTime(){

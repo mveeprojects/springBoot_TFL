@@ -13,8 +13,7 @@ public class SchedulingService {
 
     private static final Logger log = LoggerFactory.getLogger(SchedulingService.class);
 
-//    @Scheduled(fixedRate = 60000)
-    @Scheduled(cron="0 */1 * * * *")
+    @Scheduled(cron="0 */30 * * * *")
     public void reportCurrentTime() {
         String time = getCurrentTime();
         log.info("SchedulingService - " + time);
