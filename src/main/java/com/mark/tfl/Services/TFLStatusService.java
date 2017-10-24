@@ -2,7 +2,9 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mark.tfl.Controllers.TFLController;
 import com.mark.tfl.Models.LineStatus;
+import com.mark.tfl.Models.MongoTFLObject;
 import com.mark.tfl.Models.TFLResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.mark.tfl.Utils.TFLMongoActions.saveToMongo;
 
 @Service
 public class TFLStatusService {
@@ -65,7 +65,7 @@ public class TFLStatusService {
             getTFLResponse();
             getAllLineStatuses();
             getLinesWithIssues();
-            saveToMongo(allLineStatuses);
+            TFLController tflController = new TFLController();
         }
     }
 
