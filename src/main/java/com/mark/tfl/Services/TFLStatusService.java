@@ -2,10 +2,14 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mark.tfl.Controllers.TFLController;
 import com.mark.tfl.Models.LineStatus;
-import com.mark.tfl.Models.MongoTFLObject;
 import com.mark.tfl.Models.TFLResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,7 +69,9 @@ public class TFLStatusService {
             getTFLResponse();
             getAllLineStatuses();
             getLinesWithIssues();
-            TFLController tflController = new TFLController();
+//            throws null pointer exception on Autowired repository in MongoController class
+//            MongoController mongoController = new MongoController();
+//            mongoController.mongo();
         }
     }
 
