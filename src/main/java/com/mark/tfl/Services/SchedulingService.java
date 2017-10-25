@@ -21,7 +21,8 @@ public class SchedulingService {
         this.tflController = tflController;
     }
 
-    @Scheduled(cron="0 */30 * * * *")
+    //    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron = "0 */30 * * * *")
     public void reportCurrentTime() {
         String time = getCurrentTime();
         log.info("SchedulingService - " + time);

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
@@ -37,6 +38,11 @@ public class TFLStatusService {
         linesWithIssues = new ArrayList<>();
         tflRawLineStatuses = new ArrayList<>();
         allLineStatuses = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void initialCall(){
+        scheduleAPICall();
     }
 
     private void setAllLineStatuses(List<LineStatus> allLineStatuses) {
