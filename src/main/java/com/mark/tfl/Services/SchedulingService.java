@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import static com.mark.tfl.Services.TimeService.getCurrentTimeAsString;
+import static com.mark.tfl.Utils.TimeUtility.getCurrentTimeAsString;
 
 @Component
 public class SchedulingService {

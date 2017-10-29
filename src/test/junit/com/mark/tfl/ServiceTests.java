@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static com.mark.tfl.Services.TimeService.getCurrentTimeAsString;
+import static com.mark.tfl.Utils.TimeUtility.getCurrentTimeAsString;
 import static java.util.Collections.emptyList;
 
 @RunWith(MockitoJUnitRunner.class)

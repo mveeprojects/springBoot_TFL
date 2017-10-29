@@ -2,10 +2,11 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Models.MongoTFLObject;
+import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.TFLResponse;
+import com.mark.tfl.Utils.TimeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -61,9 +60,8 @@ public class TFLStatusService {
     }
 
     private void saveToMongo(){
-        LocalTime time = LocalTime.now();
-        String ttime = time.format(DateTimeFormatter.ISO_LOCAL_TIME);
-        MongoTFLObject mongoTFLObject = new MongoTFLObject(ttime, allLineStatuses);
+        String currentDateAndTime = TimeUtility.getCurrentDateAndTimeAsString();
+        MongoTFLObject mongoTFLObject = new MongoTFLObject(currentDateAndTime, allLineStatuses);
         tflRepository.save(mongoTFLObject);
     }
 
