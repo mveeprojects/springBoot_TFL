@@ -17,7 +17,6 @@ public class TFLController {
     private TFLStatusService tflStatusService;
 
     public void lastScheduledRuntime(String time) {
-//        String time = getCurrentTime();
         log.info("TFLController - " + time);
         tflStatusService.scheduleAPICall();
     }
