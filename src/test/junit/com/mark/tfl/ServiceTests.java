@@ -1,6 +1,6 @@
 package com.mark.tfl;
 
-import com.mark.tfl.Controllers.TFLRepository;
+import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Services.TFLStatusService;
 import org.junit.Assert;
@@ -21,7 +21,7 @@ import static java.util.Collections.emptyList;
 public class ServiceTests {
 
     @Mock
-    private TFLRepository tflRepository;
+    private MongoTFLRepository tflRepository;
 
     @InjectMocks
     private TFLStatusService tflStatusService;

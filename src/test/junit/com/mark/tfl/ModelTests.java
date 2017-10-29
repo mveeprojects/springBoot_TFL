@@ -1,6 +1,6 @@
 package com.mark.tfl;
 
-import com.mark.tfl.Controllers.TFLRepository;
+import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Models.MongoTFLObject;
 import com.mark.tfl.Services.TFLStatusService;
@@ -24,7 +24,7 @@ public class ModelTests {
     private MongoTFLObject mongoTFLObject = new MongoTFLObject("testtime", Arrays.asList(lineStatus));
 
     @Mock
-    private TFLRepository tflRepository;
+    private MongoTFLRepository tflRepository;
 
     @InjectMocks
     private TFLStatusService tflStatusService;

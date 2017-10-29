@@ -2,7 +2,7 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mark.tfl.Controllers.TFLRepository;
+import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.LineStatus;
 import com.mark.tfl.Models.MongoTFLObject;
 import com.mark.tfl.Models.TFLResponse;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service
 public class TFLStatusService {
 
-    private TFLRepository tflRepository;
+    private MongoTFLRepository tflRepository;
 
     private static final Logger log = LoggerFactory.getLogger(TFLStatusService.class);
     private ObjectMapper objectMapper;
@@ -32,7 +32,7 @@ public class TFLStatusService {
     private List<TFLResponse> tflRawLineStatuses;
 
     @Autowired
-    public TFLStatusService(TFLRepository tflRepository) {
+    public TFLStatusService(MongoTFLRepository tflRepository) {
         this.tflRepository = tflRepository;
         objectMapper = new ObjectMapper();
         linesWithIssues = new ArrayList<>();
