@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static com.mark.tfl.Services.TimeService.getCurrentTime;
+import static com.mark.tfl.Services.TimeService.getCurrentTimeAsString;
 import static java.util.Collections.emptyList;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -47,7 +47,7 @@ public class ServiceTests {
 
     @Test
     public void checkTimeTest(){
-        String actual = getCurrentTime();
+        String actual = getCurrentTimeAsString();
         LocalTime time = LocalTime.now();
         String expected = time.format(DateTimeFormatter.ofPattern("h:mm a"));
 

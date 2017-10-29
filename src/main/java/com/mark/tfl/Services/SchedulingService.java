@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import static com.mark.tfl.Services.TimeService.getCurrentTime;
+import static com.mark.tfl.Services.TimeService.getCurrentTimeAsString;
 
 @Component
 public class SchedulingService {
@@ -23,7 +23,7 @@ public class SchedulingService {
 
     @Scheduled(cron = "0 */30 * * * *")
     public void reportCurrentTime() {
-        String time = getCurrentTime();
+        String time = getCurrentTimeAsString();
         log.info("SchedulingService - " + time);
         tflController.lastScheduledRuntime(time);
     }

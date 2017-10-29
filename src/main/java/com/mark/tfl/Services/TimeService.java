@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class TimeService {
 
-    public static String getCurrentTime() {
+    public static String getCurrentTimeAsString() {
         return getCurrentLocalTime().format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
-    private static LocalTime getCurrentLocalTime(){
+    public static LocalTime getCurrentLocalTime(){
         return LocalTime.now();
     }
 }
