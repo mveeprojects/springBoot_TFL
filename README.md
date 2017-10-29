@@ -3,11 +3,12 @@
 
 This project is aimed at pulling data from the Transport For London API, then manipulating it and outputting it according to requests
 
-So far it retrieves data on the status of all lines from the /status API linked below, maps this to a simple java object of my own and outputs to localhost:8080/ as a list of results in simple JSON. 
+So far it retrieves data on the status of all lines from the /status API linked below, maps this to a simple java object of my own then passes this to thymeleaf temlplates accessible via localhost:8080/. 
 
-_localhost:8080/_ - view status of all lines
+To run it as an ordinary Spring Boot app run the main method in the Application.java class and navigate to _http://localhost:8080/_ in your browser.
 
-_localhost:8080/issues_ - view lines with service issues
+Uses a local Mongo DB with default port (27017) so ensure Mongo is running locally before starting application.
+
 
 **TFL APIs**
 
@@ -20,6 +21,10 @@ https://api.tfl.gov.uk/line/mode/tube/status
 
 **Note: Deploying this application via Docker is considered 'prod mode' therefore the port used to access it via HTTP is 80 rather than 8080 in 'dev mode' above (considered dev mode if running in the IDE via run config etc.).**
 
+Currently figuring out a bug with docker and using local Mongo persistence so as a temporary workaround, in order to deploy via docker complete the following steps first:
+* Open Services/TFLStatusService.java
+* Comment out the call to __saveToMongo();__ in the __runAllStatusChecks()__ method
+* Run as normal according to below instructions
 
 To build and run a docker image of this project I've set up a Dockerfile and accompanying shell script in the project root directory.
 

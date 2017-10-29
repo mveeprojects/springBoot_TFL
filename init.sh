@@ -30,6 +30,8 @@ echo ""
 echo "*************************************************************"
 echo "Starting app in new container"
 echo "*************************************************************"
+#Ask Preeyan for his wisdom on getting containerised app to use local mongo (non-dockerised)
+#docker run -d -p80:8080 -p49155:27017 --name tflapp --network=host ${IMAGEID}
 docker run -d -p80:8080 --name tflapp ${IMAGEID}
 echo ""
 
