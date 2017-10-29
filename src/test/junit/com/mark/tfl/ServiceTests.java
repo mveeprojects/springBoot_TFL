@@ -1,7 +1,7 @@
 package com.mark.tfl;
 
 import com.mark.tfl.Models.MongoTFLRepository;
-import com.mark.tfl.Models.LineStatus;
+import com.mark.tfl.Models.TFLLineStatus;
 import com.mark.tfl.Services.TFLStatusService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,18 +28,18 @@ public class ServiceTests {
 
     @Test
     public void refreshLineStatusesTest(){
-        List<LineStatus> oldStatuses = tflStatusService.getLineStatuses();
+        List<TFLLineStatus> oldStatuses = tflStatusService.getLineStatuses();
         tflStatusService.scheduleAPICall();
-        List<LineStatus> newStatuses = tflStatusService.getLineStatuses();
+        List<TFLLineStatus> newStatuses = tflStatusService.getLineStatuses();
 
         Assert.assertNotEquals(oldStatuses, newStatuses);
     }
 
     @Test
     public void refreshLineIssuesTest(){
-        List<LineStatus> oldIssues = tflStatusService.getLineIssues();
+        List<TFLLineStatus> oldIssues = tflStatusService.getLineIssues();
         tflStatusService.scheduleAPICall();
-        List<LineStatus> newIssues = tflStatusService.getLineIssues();
+        List<TFLLineStatus> newIssues = tflStatusService.getLineIssues();
 
         Assert.assertEquals(emptyList(), oldIssues);
         Assert.assertNotEquals(emptyList(), newIssues);

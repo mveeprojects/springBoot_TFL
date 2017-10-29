@@ -2,7 +2,7 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mark.tfl.Models.LineStatus;
+import com.mark.tfl.Models.TFLLineStatus;
 import com.mark.tfl.Models.MongoTFLObject;
 import com.mark.tfl.Models.MongoTFLRepository;
 import com.mark.tfl.Models.TFLResponse;
@@ -26,8 +26,8 @@ public class TFLStatusService {
 
     private static final Logger log = LoggerFactory.getLogger(TFLStatusService.class);
     private ObjectMapper objectMapper;
-    private List<LineStatus> allLineStatuses;
-    private List<LineStatus> linesWithIssues;
+    private List<TFLLineStatus> allLineStatuses;
+    private List<TFLLineStatus> linesWithIssues;
     private List<TFLResponse> tflRawLineStatuses;
 
     @Autowired
@@ -76,17 +76,17 @@ public class TFLStatusService {
     }
 
     private void getAllLineStatuses() {
-        List<LineStatus> newLineStatuses = new ArrayList<>();
+        List<TFLLineStatus> newLineStatuses = new ArrayList<>();
         for (TFLResponse tflResponse : tflRawLineStatuses) {
-            LineStatus lineStatus = new LineStatus(tflResponse.getName(), tflResponse.getStatus());
+            TFLLineStatus lineStatus = new TFLLineStatus(tflResponse.getName(), tflResponse.getStatus());
             newLineStatuses.add(lineStatus);
         }
         setAllLineStatuses(newLineStatuses);
     }
 
     private void getLinesWithIssues() {
-        List<LineStatus> newlinesWithIssues = new ArrayList<>();
-        for (LineStatus lineStatus : allLineStatuses) {
+        List<TFLLineStatus> newlinesWithIssues = new ArrayList<>();
+        for (TFLLineStatus lineStatus : allLineStatuses) {
             String status = lineStatus.getLineStatus();
             if (!Objects.equals(status, "Good Service")) {
                 newlinesWithIssues.add(lineStatus);
@@ -95,22 +95,22 @@ public class TFLStatusService {
         setLinesWithIssues(newlinesWithIssues);
     }
 
-    private void setAllLineStatuses(List<LineStatus> allLineStatuses) {
+    private void setAllLineStatuses(List<TFLLineStatus> allLineStatuses) {
         this.allLineStatuses = allLineStatuses;
     }
 
-    private void setLinesWithIssues(List<LineStatus> linesWithIssues) {
+    private void setLinesWithIssues(List<TFLLineStatus> linesWithIssues) {
         this.linesWithIssues = linesWithIssues;
     }
 
-    public List<LineStatus> getLineStatuses() {
+    public List<TFLLineStatus> getLineStatuses() {
         if (allLineStatuses == null) {
             scheduleAPICall();
         }
         return allLineStatuses;
     }
 
-    public List<LineStatus> getLineIssues() {
+    public List<TFLLineStatus> getLineIssues() {
         if (linesWithIssues == null) {
             scheduleAPICall();
         }

@@ -1,11 +1,11 @@
 package com.mark.tfl.Models;
 
-public class LineStatus {
+public class TFLLineStatus {
     private String lineName;
     private String lineStatus;
     private boolean nightTube;
 
-    public LineStatus(String lineName, String lineStatus) {
+    public TFLLineStatus(String lineName, String lineStatus) {
         this.lineName = lineName;
         this.lineStatus = lineStatus;
         this.nightTube = determineNightTube(lineName);

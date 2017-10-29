@@ -11,9 +11,9 @@ public class MongoTFLObject {
     @Id
     private String id;
     private String time;
-    private List<LineStatus> statusList;
+    private List<TFLLineStatus> statusList;
 
-    public MongoTFLObject(String time, List<LineStatus> statusList) {
+    public MongoTFLObject(String time, List<TFLLineStatus> statusList) {
         this.time = time;
         this.statusList = statusList;
     }
