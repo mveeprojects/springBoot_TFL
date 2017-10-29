@@ -3,8 +3,8 @@ package com.mark.tfl.Services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mark.tfl.Models.TFLLineStatus;
-import com.mark.tfl.Models.MongoTFLObject;
-import com.mark.tfl.Models.MongoTFLRepository;
+import com.mark.tfl.Models.TFLMongoObject;
+import com.mark.tfl.Models.TFLMongoRepo;
 import com.mark.tfl.Models.TFLResponse;
 import com.mark.tfl.Utils.TimeUtility;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ import java.util.Objects;
 @Service
 public class TFLStatusService {
 
-    private MongoTFLRepository tflRepository;
+    private TFLMongoRepo tflRepository;
 
     private static final Logger log = LoggerFactory.getLogger(TFLStatusService.class);
     private ObjectMapper objectMapper;
@@ -31,7 +31,7 @@ public class TFLStatusService {
     private List<TFLResponse> tflRawLineStatuses;
 
     @Autowired
-    public TFLStatusService(MongoTFLRepository tflRepository) {
+    public TFLStatusService(TFLMongoRepo tflRepository) {
         this.tflRepository = tflRepository;
         objectMapper = new ObjectMapper();
         linesWithIssues = new ArrayList<>();
@@ -61,7 +61,7 @@ public class TFLStatusService {
 
     private void saveToMongo(){
         String currentDateAndTime = TimeUtility.getCurrentDateAndTimeAsString();
-        MongoTFLObject mongoTFLObject = new MongoTFLObject(currentDateAndTime, allLineStatuses);
+        TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, allLineStatuses);
         tflRepository.save(mongoTFLObject);
     }
 

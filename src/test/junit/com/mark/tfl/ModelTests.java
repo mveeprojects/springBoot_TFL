@@ -1,8 +1,8 @@
 package com.mark.tfl;
 
-import com.mark.tfl.Models.MongoTFLRepository;
+import com.mark.tfl.Models.TFLMongoRepo;
 import com.mark.tfl.Models.TFLLineStatus;
-import com.mark.tfl.Models.MongoTFLObject;
+import com.mark.tfl.Models.TFLMongoObject;
 import com.mark.tfl.Services.TFLStatusService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +21,10 @@ public class ModelTests {
 
     private TFLLineStatus lineStatus = new TFLLineStatus("testline", "teststatus");
 
-    private MongoTFLObject mongoTFLObject = new MongoTFLObject("testtime", Arrays.asList(lineStatus));
+    private TFLMongoObject mongoTFLObject = new TFLMongoObject("testtime", Arrays.asList(lineStatus));
 
     @Mock
-    private MongoTFLRepository tflRepository;
+    private TFLMongoRepo tflRepository;
 
     @InjectMocks
     private TFLStatusService tflStatusService;
