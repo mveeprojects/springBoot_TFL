@@ -45,37 +45,15 @@ public class TFLStatusService {
         scheduleAPICall();
     }
 
-    private void setAllLineStatuses(List<LineStatus> allLineStatuses) {
-        this.allLineStatuses = allLineStatuses;
-    }
-
-    private void setLinesWithIssues(List<LineStatus> linesWithIssues) {
-        this.linesWithIssues = linesWithIssues;
-    }
-
     public void scheduleAPICall() {
         log.info("Updating local data on tube statuses...");
         runAllStatusChecks();
         log.info("Update complete");
     }
 
-    public List<LineStatus> getLineStatuses() {
-        if (allLineStatuses == null) {
-            scheduleAPICall();
-        }
-        return allLineStatuses;
-    }
-
-    public List<LineStatus> getLineIssues() {
-        if (linesWithIssues == null) {
-            scheduleAPICall();
-        }
-        return linesWithIssues;
-    }
-
     private void runAllStatusChecks() {
         if (tflRawLineStatuses.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
-            getTFLResponse();
+            callTFLEndpoint();
             getAllLineStatuses();
             getLinesWithIssues();
             saveToMongo();
@@ -89,7 +67,7 @@ public class TFLStatusService {
         tflRepository.save(mongoTFLObject);
     }
 
-    private void getTFLResponse() {
+    private void callTFLEndpoint() {
         try {
             URL url = new URL("https://api.tfl.gov.uk/line/mode/tube/status");
             tflRawLineStatuses = objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
@@ -117,5 +95,27 @@ public class TFLStatusService {
             }
         }
         setLinesWithIssues(newlinesWithIssues);
+    }
+
+    private void setAllLineStatuses(List<LineStatus> allLineStatuses) {
+        this.allLineStatuses = allLineStatuses;
+    }
+
+    private void setLinesWithIssues(List<LineStatus> linesWithIssues) {
+        this.linesWithIssues = linesWithIssues;
+    }
+
+    public List<LineStatus> getLineStatuses() {
+        if (allLineStatuses == null) {
+            scheduleAPICall();
+        }
+        return allLineStatuses;
+    }
+
+    public List<LineStatus> getLineIssues() {
+        if (linesWithIssues == null) {
+            scheduleAPICall();
+        }
+        return linesWithIssues;
     }
 }
