@@ -79,9 +79,6 @@ public class TFLStatusService {
             getAllLineStatuses();
             getLinesWithIssues();
             saveToMongo();
-//            throws null pointer exception on Autowired repository in MongoController class
-//            MongoController mongoController = new MongoController();
-//            mongoController.mongo();
         }
     }
 
