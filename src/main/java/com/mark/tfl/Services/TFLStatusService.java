@@ -50,17 +50,16 @@ public class TFLStatusService {
     }
 
     private void runAllStatusChecks() {
-        if (tflRawLineStatuses.isEmpty() || allLineStatuses.isEmpty() || linesWithIssues.isEmpty()) {
             callTFLEndpoint();
             getAllLineStatuses();
             getLinesWithIssues();
             saveToMongo();
-        }
     }
 
     private void saveToMongo() {
         String currentDateAndTime = TimeUtility.getCurrentDateAndTimeAsString();
         TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, allLineStatuses);
+        log.info("Saving to mongo...");
         tflRepository.save(mongoTFLObject);
     }
 
