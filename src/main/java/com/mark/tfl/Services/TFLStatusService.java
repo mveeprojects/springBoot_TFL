@@ -40,7 +40,7 @@ public class TFLStatusService {
     }
 
     @PostConstruct
-    public void initialCall(){
+    public void initialCall() {
         scheduleAPICall();
     }
 
@@ -59,7 +59,7 @@ public class TFLStatusService {
         }
     }
 
-    private void saveToMongo(){
+    private void saveToMongo() {
         String currentDateAndTime = TimeUtility.getCurrentDateAndTimeAsString();
         TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, allLineStatuses);
         tflRepository.save(mongoTFLObject);
@@ -77,10 +77,8 @@ public class TFLStatusService {
 
     private void getAllLineStatuses() {
         List<TFLLineStatus> newLineStatuses = new ArrayList<>();
-        for (TFLResponse tflResponse : tflRawLineStatuses) {
-            TFLLineStatus lineStatus = new TFLLineStatus(tflResponse.getName(), tflResponse.getStatus());
-            newLineStatuses.add(lineStatus);
-        }
+        tflRawLineStatuses
+                .forEach(result -> newLineStatuses.add(new TFLLineStatus(result.getName(), result.getStatus())));
         setAllLineStatuses(newLineStatuses);
     }
 
