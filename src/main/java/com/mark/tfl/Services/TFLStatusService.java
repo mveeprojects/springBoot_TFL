@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TFLStatusService {
@@ -84,12 +83,10 @@ public class TFLStatusService {
 
     private void getLinesWithIssues() {
         List<TFLLineStatus> newlinesWithIssues = new ArrayList<>();
-        for (TFLLineStatus lineStatus : allLineStatuses) {
-            String status = lineStatus.getLineStatus();
-            if (!Objects.equals(status, "Good Service")) {
-                newlinesWithIssues.add(lineStatus);
-            }
-        }
+        allLineStatuses
+                .stream()
+                .filter(status -> !"Good Service".equals(status.getLineStatus()))
+                .forEach(newlinesWithIssues::add);
         setLinesWithIssues(newlinesWithIssues);
     }
 
