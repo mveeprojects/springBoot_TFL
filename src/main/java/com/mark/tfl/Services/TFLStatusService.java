@@ -26,6 +26,7 @@ public class TFLStatusService {
     private List<TFLLineStatus> allLineStatuses;
     private List<TFLLineStatus> linesWithIssues;
     private List<TFLResponse> tflRawLineStatuses;
+    private List<TFLLineHistoryObject> lineHistories;
 
     @Autowired
     public TFLStatusService(TFLMongoRepo tflRepository) {
@@ -34,6 +35,7 @@ public class TFLStatusService {
         linesWithIssues = new ArrayList<>();
         tflRawLineStatuses = new ArrayList<>();
         allLineStatuses = new ArrayList<>();
+        lineHistories = new ArrayList<>();
     }
 
     @PostConstruct
@@ -48,10 +50,10 @@ public class TFLStatusService {
     }
 
     private void runAllStatusChecks() {
-            callTFLEndpoint();
-            getAllLineStatuses();
-            getLinesWithIssues();
-            saveToMongo();
+        callTFLEndpoint();
+        getAllLineStatuses();
+        getLinesWithIssues();
+        saveToMongo();
     }
 
     private void saveToMongo() {
@@ -61,19 +63,15 @@ public class TFLStatusService {
         tflRepository.save(mongoTFLObject);
     }
 
-    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName){
-
-        List<TFLLineHistoryObject> lineHistories = new ArrayList<>();
-
-        for (TFLMongoObject tflMongoObject : tflRepository.findAll() ) {
+    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName) {
+        lineHistories.clear();
+        for (TFLMongoObject tflMongoObject : tflRepository.findAll()) {
             for (TFLLineStatus tflLineStatus : tflMongoObject.getStatusList()) {
-
-                if(Objects.equals(tflLineStatus.getLineName(), lineName)){
+                if (Objects.equals(tflLineStatus.getLineName(), lineName)) {
                     lineHistories.add(new TFLLineHistoryObject(tflMongoObject.getTime(), tflLineStatus.getLineName(), tflLineStatus.getLineStatus()));
                 }
             }
         }
-
         return lineHistories;
     }
 

@@ -42,13 +42,13 @@ public class TFLController {
     }
 
     @RequestMapping("/linehistory")
-    public String lineHistory(@RequestParam("name") String lineName, Model model){
+    public String lineHistory(@RequestParam("linename") String lineName, Model model){
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("lineName", lineName);
 
         List<TFLLineHistoryObject> statushistory = tflStatusService.getLineStatusHistoryFromMongo(lineName);
 
         model.addAttribute("history", statushistory);
-        return "test";
+        return "line_history";
     }
 }
