@@ -17,4 +17,12 @@ public class TFLMongoObject {
         this.time = time;
         this.statusList = statusList;
     }
+
+    public List<TFLLineStatus> getStatusList() {
+        return statusList;
+    }
+
+    public String getTime() {
+        return time;
+    }
 }

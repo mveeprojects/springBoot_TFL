@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TFLStatusService {
@@ -61,6 +62,18 @@ public class TFLStatusService {
         TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, allLineStatuses);
         log.info("Saving to mongo...");
         tflRepository.save(mongoTFLObject);
+    }
+
+    public String getLineStatusHistoryFromMongo(String lineName){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (TFLMongoObject tflMongoObject : tflRepository.findAll() ) {
+            for (TFLLineStatus tflLineStatus : tflMongoObject.getStatusList()) {
+                if(Objects.equals(tflLineStatus.getLineName(), lineName)){
+                    stringBuilder.append("\n" + tflMongoObject.getTime() + "\t" + tflLineStatus + "\n");
+                }
+            }
+        }
+        return stringBuilder.toString();
     }
 
     private void callTFLEndpoint() {
