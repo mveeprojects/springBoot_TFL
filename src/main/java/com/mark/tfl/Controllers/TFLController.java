@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TFLController {
@@ -35,5 +36,12 @@ public class TFLController {
         model.addAttribute("tablecontent", tflStatusService.getLineIssues());
         model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
         return "index";
+    }
+
+    @RequestMapping("/linehistory")
+    public String lineHistory(@RequestParam("name") String lineName, Model model){
+        model.addAttribute("heading", "Status history of the " + lineName + " line");
+        model.addAttribute("lineName", lineName);
+        return "test";
     }
 }
