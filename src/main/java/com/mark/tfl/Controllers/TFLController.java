@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static com.mark.tfl.Utils.MathUtils.getPercentage;
+
 @Controller
 public class TFLController {
 
@@ -44,10 +46,10 @@ public class TFLController {
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model) {
         List<TFLLineHistoryObject> lineHistory = tflStatusService.streamLineStatusHistoryFromMongo(lineName);
-        int historyCount = tflStatusService.historyCount();
-        int goodHistoryCount = tflStatusService.goodHistoryCount();
+        long historyCount = tflStatusService.historyCount();
+        long goodHistoryCount = tflStatusService.streamGoodHistoryCount();
         int notGoodHistoryCount = tflStatusService.notGoodHistoryCount();
-        double percentageUptime = tflStatusService.percentageUptime(historyCount, goodHistoryCount);
+        double percentageUptime = getPercentage(historyCount, goodHistoryCount);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("history", lineHistory);
         model.addAttribute("total_count", "Total number of searches: " + historyCount);

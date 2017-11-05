@@ -74,18 +74,14 @@ public class TFLStatusService {
         return lineHistories;
     }
 
-    public int historyCount() {
+    public long historyCount() {
         return lineHistories.size();
     }
 
-    public int goodHistoryCount() {
-        int count = 0;
-        for (TFLLineHistoryObject tflLineHistoryObject : lineHistories) {
-            if ("Good Service".equals(tflLineHistoryObject.getLineStatus())) {
-                count++;
-            }
-        }
-        return count;
+    public long streamGoodHistoryCount() {
+        return lineHistories.stream()
+                .filter(status -> "Good Service".equals(status.getLineStatus()))
+                .count();
     }
 
     public int notGoodHistoryCount() {
@@ -96,10 +92,6 @@ public class TFLStatusService {
             }
         }
         return count;
-    }
-
-    public double percentageUptime(int total, int goodservice) {
-        return (goodservice * 100 / total);
     }
 
     private void callTFLEndpoint() {

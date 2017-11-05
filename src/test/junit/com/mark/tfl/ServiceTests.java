@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static com.mark.tfl.Utils.MathUtils.getPercentage;
 import static com.mark.tfl.Utils.TimeUtility.getCurrentTimeAsString;
 import static java.util.Collections.emptyList;
 
@@ -52,5 +53,11 @@ public class ServiceTests {
         String expected = time.format(DateTimeFormatter.ofPattern("h:mm a"));
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getPercentageTest(){
+        double actual = getPercentage(101, 65);
+        Assert.assertEquals(64.0, actual, 1);
     }
 }
