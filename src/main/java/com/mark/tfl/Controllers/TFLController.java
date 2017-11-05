@@ -1,5 +1,6 @@
 package com.mark.tfl.Controllers;
 
+import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class TFLController {
@@ -39,13 +42,18 @@ public class TFLController {
     }
 
     @RequestMapping("/linehistory")
-    public String lineHistory(@RequestParam("linename") String lineName, Model model){
+    public String lineHistory(@RequestParam("linename") String lineName, Model model) {
+        List<TFLLineHistoryObject> lineHistory = tflStatusService.streamLineStatusHistoryFromMongo(lineName);
+        int historyCount = tflStatusService.historyCount();
+        int goodHistoryCount = tflStatusService.goodHistoryCount();
+        int notGoodHistoryCount = tflStatusService.notGoodHistoryCount();
+        double percentageUptime = tflStatusService.percentageUptime(historyCount, goodHistoryCount);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
-        model.addAttribute("history", tflStatusService.streamLineStatusHistoryFromMongo(lineName));
-        model.addAttribute("total_count", "Total number of searches: " + tflStatusService.historyCount());
-        model.addAttribute("good_count", "Good Service: " + tflStatusService.goodHistoryCount());
-        model.addAttribute("not_good_count", "Other: " + tflStatusService.notGoodHistoryCount());
-        model.addAttribute("percentage_uptime", "Percentage uptime: " + tflStatusService.percentageUptime(tflStatusService.historyCount(), tflStatusService.goodHistoryCount()) + "%");
+        model.addAttribute("history", lineHistory);
+        model.addAttribute("total_count", "Total number of searches: " + historyCount);
+        model.addAttribute("good_count", "Good Service: " + goodHistoryCount);
+        model.addAttribute("not_good_count", "Other: " + notGoodHistoryCount);
+        model.addAttribute("percentage_uptime", "Percentage uptime: " + percentageUptime + "%");
         model.addAttribute("lineName", lineName);
         return "line_history";
     }
