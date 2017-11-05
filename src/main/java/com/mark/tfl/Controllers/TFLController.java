@@ -18,6 +18,8 @@ import static com.mark.tfl.Utils.MathUtils.getPercentage;
 public class TFLController {
 
     private static final Logger log = LoggerFactory.getLogger(TFLController.class);
+    private long historyCount, goodHistoryCount, notGoodHistoryCount;
+    private double percentageUptime;
 
     @Autowired
     private TFLStatusService tflStatusService;
@@ -46,10 +48,10 @@ public class TFLController {
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model) {
         List<TFLLineHistoryObject> lineHistory = tflStatusService.streamLineStatusHistoryFromMongo(lineName);
-        long historyCount = tflStatusService.historyCount();
-        long goodHistoryCount = tflStatusService.streamGoodHistoryCount();
-        long notGoodHistoryCount = tflStatusService.streamNotGoodHistoryCount();
-        double percentageUptime = getPercentage(historyCount, goodHistoryCount);
+        historyCount = tflStatusService.historyCount();
+        goodHistoryCount = tflStatusService.streamGoodHistoryCount();
+        notGoodHistoryCount = tflStatusService.streamNotGoodHistoryCount();
+        percentageUptime = getPercentage(historyCount, goodHistoryCount);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("history", lineHistory);
         model.addAttribute("total_count", "Total number of searches: " + historyCount);
