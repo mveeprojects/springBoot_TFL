@@ -84,7 +84,7 @@ public class TFLStatusService {
                 .count();
     }
 
-    public long notGoodHistoryCount() {
+    public long streamNotGoodHistoryCount() {
         return lineHistories.stream()
                 .filter(status -> !"Good Service".equals(status.getLineStatus()))
                 .count();

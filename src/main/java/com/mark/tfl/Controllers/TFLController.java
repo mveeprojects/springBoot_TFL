@@ -48,7 +48,7 @@ public class TFLController {
         List<TFLLineHistoryObject> lineHistory = tflStatusService.streamLineStatusHistoryFromMongo(lineName);
         long historyCount = tflStatusService.historyCount();
         long goodHistoryCount = tflStatusService.streamGoodHistoryCount();
-        long notGoodHistoryCount = tflStatusService.notGoodHistoryCount();
+        long notGoodHistoryCount = tflStatusService.streamNotGoodHistoryCount();
         double percentageUptime = getPercentage(historyCount, goodHistoryCount);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("history", lineHistory);
