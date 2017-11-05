@@ -84,14 +84,10 @@ public class TFLStatusService {
                 .count();
     }
 
-    public int notGoodHistoryCount() {
-        int count = 0;
-        for (TFLLineHistoryObject tflLineHistoryObject : lineHistories) {
-            if (!"Good Service".equals(tflLineHistoryObject.getLineStatus())) {
-                count++;
-            }
-        }
-        return count;
+    public long notGoodHistoryCount() {
+        return lineHistories.stream()
+                .filter(status -> !"Good Service".equals(status.getLineStatus()))
+                .count();
     }
 
     private void callTFLEndpoint() {
