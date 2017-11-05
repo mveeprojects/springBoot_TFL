@@ -1,6 +1,5 @@
 package com.mark.tfl.Controllers;
 
-import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class TFLController {
@@ -44,11 +41,12 @@ public class TFLController {
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model){
         model.addAttribute("heading", "Status history of the " + lineName + " line");
+        model.addAttribute("history", tflStatusService.getLineStatusHistoryFromMongo(lineName));
+        model.addAttribute("total_count", "Total number of searches: " + tflStatusService.historyCount());
+        model.addAttribute("good_count", "Good Service: " + tflStatusService.goodHistoryCount());
+        model.addAttribute("not_good_count", "Other: " + tflStatusService.notGoodHistoryCount());
+        model.addAttribute("percentage_uptime", "Percentage uptime: " + tflStatusService.percentageUptime(tflStatusService.historyCount(), tflStatusService.goodHistoryCount()) + "%");
         model.addAttribute("lineName", lineName);
-
-        List<TFLLineHistoryObject> statushistory = tflStatusService.getLineStatusHistoryFromMongo(lineName);
-
-        model.addAttribute("history", statushistory);
         return "line_history";
     }
 }

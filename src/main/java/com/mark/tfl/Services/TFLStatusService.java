@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TFLStatusService {
@@ -67,12 +66,40 @@ public class TFLStatusService {
         lineHistories.clear();
         for (TFLMongoObject tflMongoObject : tflRepository.findAll()) {
             for (TFLLineStatus tflLineStatus : tflMongoObject.getStatusList()) {
-                if (Objects.equals(tflLineStatus.getLineName(), lineName)) {
+                if (tflLineStatus.getLineName().contains(lineName)) {
                     lineHistories.add(new TFLLineHistoryObject(tflMongoObject.getTime(), tflLineStatus.getLineName(), tflLineStatus.getLineStatus()));
                 }
             }
         }
         return lineHistories;
+    }
+
+    public int historyCount() {
+        return lineHistories.size();
+    }
+
+    public int goodHistoryCount() {
+        int count = 0;
+        for (TFLLineHistoryObject tflLineHistoryObject : lineHistories) {
+            if ("Good Service".equals(tflLineHistoryObject.getLineStatus())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int notGoodHistoryCount() {
+        int count = 0;
+        for (TFLLineHistoryObject tflLineHistoryObject : lineHistories) {
+            if (!"Good Service".equals(tflLineHistoryObject.getLineStatus())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public double percentageUptime(int total, int goodservice) {
+        return (goodservice * 100 / total);
     }
 
     private void callTFLEndpoint() {
