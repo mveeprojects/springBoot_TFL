@@ -15,7 +15,22 @@
 
 <div class="container">
     <p th:text="${heading}"></p>
-    <p th:text="${history}"></p>
+    <!--<p th:text="${history}"></p>-->
+
+
+    <table class="table table-striped table-hover table-responsive" id="jsonTable">
+        <tr>
+            <th class="col-xs-4">Date &amp; Time</th>
+            <th class="col-xs-4">Line Name</th>
+            <th class="col-xs-4">Status</th>
+        </tr>
+        <tr th:each="line : ${history}">
+            <td th:text="${line.time}"></td>
+            <td th:text="${line.lineName}"></td>
+            <td class="status" th:text="${line.lineStatus}"></td>
+        </tr>
+    </table>
+
 </div>
 
 </body>

@@ -2,10 +2,7 @@ package com.mark.tfl.Services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mark.tfl.Models.TFLLineStatus;
-import com.mark.tfl.Models.TFLMongoObject;
-import com.mark.tfl.Models.TFLMongoRepo;
-import com.mark.tfl.Models.TFLResponse;
+import com.mark.tfl.Models.*;
 import com.mark.tfl.Utils.TimeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,16 +61,20 @@ public class TFLStatusService {
         tflRepository.save(mongoTFLObject);
     }
 
-    public String getLineStatusHistoryFromMongo(String lineName){
-        StringBuilder stringBuilder = new StringBuilder();
+    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName){
+
+        List<TFLLineHistoryObject> lineHistories = new ArrayList<>();
+
         for (TFLMongoObject tflMongoObject : tflRepository.findAll() ) {
             for (TFLLineStatus tflLineStatus : tflMongoObject.getStatusList()) {
+
                 if(Objects.equals(tflLineStatus.getLineName(), lineName)){
-                    stringBuilder.append("\n" + tflMongoObject.getTime() + "\t" + tflLineStatus + "\n");
+                    lineHistories.add(new TFLLineHistoryObject(tflMongoObject.getTime(), tflLineStatus.getLineName(), tflLineStatus.getLineStatus()));
                 }
             }
         }
-        return stringBuilder.toString();
+
+        return lineHistories;
     }
 
     private void callTFLEndpoint() {
