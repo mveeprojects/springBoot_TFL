@@ -41,7 +41,7 @@ public class TFLController {
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model){
         model.addAttribute("heading", "Status history of the " + lineName + " line");
-        model.addAttribute("history", tflStatusService.getLineStatusHistoryFromMongo(lineName));
+        model.addAttribute("history", tflStatusService.streamLineStatusHistoryFromMongo(lineName));
         model.addAttribute("total_count", "Total number of searches: " + tflStatusService.historyCount());
         model.addAttribute("good_count", "Good Service: " + tflStatusService.goodHistoryCount());
         model.addAttribute("not_good_count", "Other: " + tflStatusService.notGoodHistoryCount());

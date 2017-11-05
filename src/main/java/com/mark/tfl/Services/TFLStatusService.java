@@ -62,18 +62,6 @@ public class TFLStatusService {
         tflRepository.save(mongoTFLObject);
     }
 
-    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName) {
-        lineHistories.clear();
-        for (TFLMongoObject tflMongoObject : tflRepository.findAll()) {
-            for (TFLLineStatus tflLineStatus : tflMongoObject.getStatusList()) {
-                if (tflLineStatus.getLineName().contains(lineName)) {
-                    lineHistories.add(new TFLLineHistoryObject(tflMongoObject.getTime(), tflLineStatus.getLineName(), tflLineStatus.getLineStatus()));
-                }
-            }
-        }
-        return lineHistories;
-    }
-
     public int historyCount() {
         return lineHistories.size();
     }
@@ -126,6 +114,18 @@ public class TFLStatusService {
                 .filter(status -> !"Good Service".equals(status.getLineStatus()))
                 .forEach(newlinesWithIssues::add);
         setLinesWithIssues(newlinesWithIssues);
+    }
+
+    public List<TFLLineHistoryObject> streamLineStatusHistoryFromMongo(String lineName) {
+        lineHistories.clear();
+        tflRepository.findAll()
+                .forEach(tflLineStatus -> tflLineStatus.getStatusList()
+                        .forEach(x -> {
+                            if (x.getLineName().contains(lineName)) {
+                                lineHistories.add(new TFLLineHistoryObject(tflLineStatus.getTime(), x.getLineName(), x.getLineStatus()));
+                            }
+                        }));
+        return lineHistories;
     }
 
     private void setAllLineStatuses(List<TFLLineStatus> allLineStatuses) {
