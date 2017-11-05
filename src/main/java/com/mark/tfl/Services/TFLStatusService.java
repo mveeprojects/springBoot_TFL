@@ -74,7 +74,7 @@ public class TFLStatusService {
         return lineHistories;
     }
 
-    public long historyCount() {
+    public long getHistoryCount() {
         return lineHistories.size();
     }
 
