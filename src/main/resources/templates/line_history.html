@@ -39,13 +39,19 @@
 <body>
 
 <div class="container">
-    <p th:text="${heading}"></p>
-    <p th:text="${total_count}"></p>
-    <p th:text="${good_count}"></p>
-    <p th:text="${not_good_count}"></p>
-    <p th:text="${percentage_uptime}"></p>
 
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <p th:text="${heading}"></p>
+            <p th:text="${total_count}"></p>
+            <p th:text="${good_count}"></p>
+            <p th:text="${not_good_count}"></p>
+            <p th:text="${percentage_uptime}"></p>
+        </div>
+        <div class="col-md-6">
+            <div id="piechart" style="width: 100%; height: 100%;"></div>
+        </div>
+    </div>
 
     <table class="table table-striped table-hover table-responsive" id="jsonTable">
         <tr>
