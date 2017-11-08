@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
 
@@ -20,13 +22,18 @@ public class TFLController {
     private static final Logger log = LoggerFactory.getLogger(TFLController.class);
     private long historyCount, goodHistoryCount, notGoodHistoryCount;
     private double percentageUptime;
+    private List<String> statuses;
+    private int distinctStatuses;
+    private List<String> strings = Arrays.asList("Good Service", "Minor Delays", "Part Suspended", "Severe Delays");
+
 
     @Autowired
     private TFLStatusService tflStatusService;
 
     public void lastScheduledRuntime(String time) {
         log.info("TFLController - " + time);
-        tflStatusService.scheduleAPICall();
+//        TODO: Commenting out to prevent making more calls to TFL
+//        tflStatusService.scheduleAPICall();
     }
 
     @RequestMapping("/")
@@ -48,10 +55,7 @@ public class TFLController {
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model) {
         List<TFLLineHistoryObject> lineHistory = tflStatusService.getLineStatusHistoryFromMongo(lineName);
-        historyCount = tflStatusService.getHistoryCount();
-        goodHistoryCount = tflStatusService.getGoodHistoryCount();
-        notGoodHistoryCount = tflStatusService.getNotGoodHistoryCount();
-        percentageUptime = getPercentage(historyCount, goodHistoryCount);
+        updateVariables(lineName);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("history", lineHistory);
         model.addAttribute("total_count", "Total number of searches: " + historyCount);
@@ -59,31 +63,50 @@ public class TFLController {
         model.addAttribute("not_good_count", "Other: " + notGoodHistoryCount);
         model.addAttribute("percentage_uptime", "Percentage uptime: " + percentageUptime + "%");
         model.addAttribute("lineName", lineName);
+        model.addAttribute("mapsList", populateChart());
         return "line_history";
     }
 
-    @RequestMapping("/chart")
-    public String exampleChartModel (Model model){
-        model.addAttribute("mapsList", someMethod());
-        return "charttest";
+    private void updateVariables(String lineName) {
+        historyCount = tflStatusService.getHistoryCount();
+        goodHistoryCount = tflStatusService.getGoodHistoryCount();
+        notGoodHistoryCount = tflStatusService.getNotGoodHistoryCount();
+        percentageUptime = getPercentage(historyCount, goodHistoryCount);
+        statuses = tflStatusService.getLineStatusesForLine(lineName);
     }
 
-    /*
-        TODO:
-        Could count how many distinct lineStatus values there are for a given line and set that as the left hand value
-        Then get the count of occurrences of each lineStatus value and set as the right hand value
-    */
+    private Object[][] populateChart() {
+        findDistinctStatuses();
+        Object[][] result = new Object[distinctStatuses + 1][2];
 
-    private Object[][] someMethod(){
-        Object[][] result = new Object[4][2];
-        result[0][0] = "Country";
-        result[0][1] = "Number";
-        result[1][0] = "IE";
-        result[1][1] = 7;
-        result[2][0] = "UK";
-        result[2][1] = 12;
-        result[3][0] = "Germany";
-        result[3][1] = 0;
+        result[0][0] = "Status";
+        result[0][1] = "Frequency";
+
+        for (int i = 1; i < distinctStatuses + 1; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
+                    result[i][j] = strings.get(i-1);
+                } else {
+                    result[i][j] = findFrequencyOfStatus(strings.get(i-1));
+                }
+
+            }
+        }
+
         return result;
+    }
+
+    private int findFrequencyOfStatus(String statusType) {
+        int count = 0;
+        for (String status : statuses) {
+            if (Objects.equals(statusType, status)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private void findDistinctStatuses(){
+        distinctStatuses = (int) statuses.stream().distinct().count();
     }
 }

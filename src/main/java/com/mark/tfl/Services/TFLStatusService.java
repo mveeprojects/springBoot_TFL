@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TFLStatusService {
@@ -72,6 +73,21 @@ public class TFLStatusService {
                             }
                         }));
         return lineHistories;
+    }
+
+    public List<String> getLineStatusesForLine(String lineName) {
+
+        List<String> statuses = new ArrayList<>();
+
+        for (TFLMongoObject mongoObject : tflRepository.findAll()) {
+            for (TFLLineStatus tflLineStatus : mongoObject.getStatusList()) {
+                if (Objects.equals(tflLineStatus.getLineName(), lineName)) {
+                    statuses.add(tflLineStatus.getLineStatus());
+                }
+            }
+        }
+
+        return statuses;
     }
 
     public long getHistoryCount() {
