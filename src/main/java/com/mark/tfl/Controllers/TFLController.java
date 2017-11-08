@@ -32,8 +32,7 @@ public class TFLController {
 
     public void lastScheduledRuntime(String time) {
         log.info("TFLController - " + time);
-//        TODO: Commenting out to prevent making more calls to TFL
-//        tflStatusService.scheduleAPICall();
+        tflStatusService.scheduleAPICall();
     }
 
     @RequestMapping("/")

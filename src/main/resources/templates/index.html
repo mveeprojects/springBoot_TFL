@@ -33,6 +33,16 @@
                     </li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Line History
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:each="line : ${dropdowncontent}" th:value="${line.lineName}"><a th:href="@{/linehistory?linename={id}(id=${line.lineName})}">
+                        <span th:text="${line.lineName}"></span>
+                    </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>

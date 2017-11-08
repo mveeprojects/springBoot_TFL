@@ -45,6 +45,7 @@ public class TFLStatusService {
 
     public void scheduleAPICall() {
         log.info("Updating local data on tube statuses...");
+//        TODO: Commenting out to prevent making more calls to TFL
         runAllStatusChecks();
         log.info("Update complete");
     }
