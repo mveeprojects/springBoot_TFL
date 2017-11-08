@@ -32,8 +32,41 @@
 </head>
 <body>
 
-<div class="container">
+<nav class="navbar navbar-inverse" style="border-radius:0px">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">TFL Monitor</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">All Lines</a></li>
+            <li><a href="/issues">Line Issues</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Current line status
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:each="line : ${dropdowncontent}" th:value="${line.lineName}"
+                        th:onclick="'javascript:showIndividualLineStatus(\'' + ${line.lineName} + '\', \'' + ${line.lineStatus} + '\');'">
+                        <a href="#">
+                            <span th:text="${line.lineName}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Line History
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:each="line : ${dropdowncontent}" th:value="${line.lineName}"><a th:href="@{/linehistory?linename={id}(id=${line.lineName})}">
+                        <span th:text="${line.lineName}"></span>
+                    </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 
+<div class="container">
     <div class="row">
         <div class="col-md-6">
             <h2 th:text="${heading}"></h2>

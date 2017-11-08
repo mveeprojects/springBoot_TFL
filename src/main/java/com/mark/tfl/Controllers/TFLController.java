@@ -55,6 +55,7 @@ public class TFLController {
     public String lineHistory(@RequestParam("linename") String lineName, Model model) {
         List<TFLLineHistoryObject> lineHistory = tflStatusService.getLineStatusHistoryFromMongo(lineName);
         updateVariables(lineName);
+        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
         model.addAttribute("heading", "Status history of the " + lineName + " line");
         model.addAttribute("history", lineHistory);
         model.addAttribute("total_count", "Total number of searches: " + historyCount);
