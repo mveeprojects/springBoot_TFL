@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
 
@@ -61,4 +64,33 @@ public class TFLController {
         model.addAttribute("lineName", lineName);
         return "line_history";
     }
+
+    @RequestMapping("/chart")
+    public String exampleChartModel (Model model){
+        List<Map<String, Integer>> mapsList = new ArrayList<>();
+
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("UK", 12);
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("Germany", 32);
+        Map<String, Integer> map3 = new HashMap<>();
+        map2.put("USA", 16);
+
+        mapsList.add(map1);
+        mapsList.add(map2);
+        mapsList.add(map3);
+
+        model.addAttribute("mapsList", mapsList);
+
+        return "charttest";
+    }
+
+//    @Test
+//    public void test(){
+//        Map<String, Integer> someData = new HashMap<>();
+//        someData.put("UK", 12);
+//        someData.put("Canada", 7);
+//        someData.put("USA", 32);
+//        System.out.println(someData.toString());
+//    }
 }
