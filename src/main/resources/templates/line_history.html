@@ -14,9 +14,7 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
       function drawChart() {
-
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Work',     11],
@@ -25,14 +23,8 @@
           ['Watch TV', 2],
           ['Sleep',    7]
         ]);
-
-        var options = {
-          title: 'My Daily Activities'
-        };
-
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
+        chart.draw(data);
       }
     </script>
 </head>
@@ -42,7 +34,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <p th:text="${heading}"></p>
+            <h2 th:text="${heading}"></h2>
             <p th:text="${total_count}"></p>
             <p th:text="${good_count}"></p>
             <p th:text="${not_good_count}"></p>
