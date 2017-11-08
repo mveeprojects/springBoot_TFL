@@ -68,7 +68,13 @@ public class TFLController {
         return "charttest";
     }
 
-    public Object[][] someMethod(){
+    /*
+        TODO:
+        Could count how many distinct lineStatus values there are for a given line and set that as the left hand value
+        Then get the count of occurrences of each lineStatus value and set as the right hand value
+    */
+
+    private Object[][] someMethod(){
         Object[][] result = new Object[4][2];
         result[0][0] = "Country";
         result[0][1] = "Number";
