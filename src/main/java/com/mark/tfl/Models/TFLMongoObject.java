@@ -5,7 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "TFL_Line_Statuses")
+//@Document(collection = "TFL_Line_Statuses")
+@Document(collection = "TFLTestData")
 public class TFLMongoObject {
 
     @Id

@@ -2,6 +2,8 @@ package com.mark.tfl.Controllers;
 
 import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
+import com.mark.tfl.Utils.GraphUtils;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class TFLController {
 
     @Autowired
     private TFLStatusService tflStatusService;
+
+    @Autowired
+    private GraphUtils graphUtils;
 
     public void lastScheduledRuntime(String time) {
         log.info("TFLController - " + time);
@@ -61,7 +66,7 @@ public class TFLController {
         model.addAttribute("not_good_count", "Other: " + notGoodHistoryCount);
         model.addAttribute("percentage_uptime", "Percentage uptime: " + percentageUptime + "%");
         model.addAttribute("lineName", lineName);
-        model.addAttribute("mapsList", populateChart());
+        model.addAttribute("mapsList", graphUtils.populateChart(statuses));
         return "line_history";
     }
 
@@ -71,44 +76,5 @@ public class TFLController {
         notGoodHistoryCount = tflStatusService.getNotGoodHistoryCount();
         percentageUptime = getPercentage(historyCount, goodHistoryCount);
         statuses = tflStatusService.getLineStatusesForLine(lineName);
-    }
-
-    private Object[][] populateChart() {
-        listDistinctStatuses();
-        Object[][] result = new Object[distinctStatuses.size() + 1][2];
-
-        result[0][0] = "Status";
-        result[0][1] = "Frequency";
-
-        for (int row = 1; row <= distinctStatuses.size(); row++) {
-            for (int column = 0; column < 2; column++) {
-                if (column == 0) {
-                    result[row][column] = distinctStatuses.get(row - 1);
-                } else {
-                    result[row][column] = findFrequencyOfStatus(distinctStatuses.get(row - 1));
-                }
-            }
-        }
-        return result;
-    }
-
-    private int findFrequencyOfStatus(String statusType) {
-        int count = 0;
-        for (String status : statuses) {
-            if (Objects.equals(statusType, status)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private void listDistinctStatuses() {
-        distinctStatuses = new ArrayList<>();
-        for (String s : statuses) {
-            if (!distinctStatuses.contains(s)) {
-                System.out.println("adding to list: " + s);
-                distinctStatuses.add(s);
-            }
-        }
     }
 }

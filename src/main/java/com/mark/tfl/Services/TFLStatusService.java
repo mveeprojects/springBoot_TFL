@@ -54,7 +54,7 @@ public class TFLStatusService {
         callTFLEndpoint();
         getAllLineStatuses();
         getLinesWithIssues();
-        saveToMongo();
+//        saveToMongo();
     }
 
     private void saveToMongo() {
