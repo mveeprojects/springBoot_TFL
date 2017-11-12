@@ -2,8 +2,7 @@ package com.mark.tfl.Controllers;
 
 import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
-import com.mark.tfl.Utils.GraphUtils;
-import org.junit.Test;
+import com.mark.tfl.Utils.TFLGraphUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
 
@@ -25,13 +22,12 @@ public class TFLController {
     private long historyCount, goodHistoryCount, notGoodHistoryCount;
     private double percentageUptime;
     private List<String> statuses;
-    private List<String> distinctStatuses;
 
     @Autowired
     private TFLStatusService tflStatusService;
 
     @Autowired
-    private GraphUtils graphUtils;
+    private TFLGraphUtils TFLGraphUtils;
 
     public void lastScheduledRuntime(String time) {
         log.info("TFLController - " + time);
@@ -66,7 +62,7 @@ public class TFLController {
         model.addAttribute("not_good_count", "Other: " + notGoodHistoryCount);
         model.addAttribute("percentage_uptime", "Percentage uptime: " + percentageUptime + "%");
         model.addAttribute("lineName", lineName);
-        model.addAttribute("mapsList", graphUtils.populateChart(statuses));
+        model.addAttribute("mapsList", TFLGraphUtils.populateChart(statuses));
         return "line_history";
     }
 

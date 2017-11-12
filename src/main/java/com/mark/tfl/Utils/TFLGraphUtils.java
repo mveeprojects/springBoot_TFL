@@ -4,9 +4,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
-public class GraphUtils {
+public class TFLGraphUtils {
 
     private List<String> statuses;
     private List<String> distinctStatuses;
@@ -14,20 +15,22 @@ public class GraphUtils {
     public Object[][] populateChart(List<String> statuses) {
         this.statuses = statuses;
         listDistinctStatuses();
-        Object[][] result = new Object[distinctStatuses.size() + 1][2];
+        int rows = distinctStatuses.size() + 1, columns = 2;
+        Object[][] result = new Object[rows][columns];
 
         result[0][0] = "Status";
         result[0][1] = "Frequency";
 
-        for (int row = 1; row <= distinctStatuses.size(); row++) {
-            for (int column = 0; column < 2; column++) {
-                if (column == 0) {
-                    result[row][column] = distinctStatuses.get(row - 1);
-                } else {
-                    result[row][column] = findFrequencyOfStatus(distinctStatuses.get(row - 1));
-                }
-            }
-        }
+        IntStream.range(1, rows)
+                .forEach(r -> IntStream.range(0, columns)
+                        .forEach(c -> {
+                            if (c % 2 == 0) {
+                                result[r][c] = distinctStatuses.get(r - 1);
+                            } else {
+                                result[r][c] = findFrequencyOfStatus(distinctStatuses.get(r - 1));
+                            }
+                        })
+                );
         return result;
     }
 
