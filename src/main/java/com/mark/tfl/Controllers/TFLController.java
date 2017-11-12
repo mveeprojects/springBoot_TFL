@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,9 +23,7 @@ public class TFLController {
     private long historyCount, goodHistoryCount, notGoodHistoryCount;
     private double percentageUptime;
     private List<String> statuses;
-    private int distinctStatuses;
-    private List<String> strings = Arrays.asList("Good Service", "Minor Delays", "Part Suspended", "Severe Delays");
-
+    private List<String> distinctStatuses;
 
     @Autowired
     private TFLStatusService tflStatusService;
@@ -76,23 +74,21 @@ public class TFLController {
     }
 
     private Object[][] populateChart() {
-        findDistinctStatuses();
-        Object[][] result = new Object[distinctStatuses + 1][2];
+        listDistinctStatuses();
+        Object[][] result = new Object[distinctStatuses.size() + 1][2];
 
         result[0][0] = "Status";
         result[0][1] = "Frequency";
 
-        for (int i = 1; i < distinctStatuses + 1; i++) {
-            for (int j = 0; j < 2; j++) {
-                if (j == 0) {
-                    result[i][j] = strings.get(i-1);
+        for (int row = 1; row <= distinctStatuses.size(); row++) {
+            for (int column = 0; column < 2; column++) {
+                if (column == 0) {
+                    result[row][column] = distinctStatuses.get(row - 1);
                 } else {
-                    result[i][j] = findFrequencyOfStatus(strings.get(i-1));
+                    result[row][column] = findFrequencyOfStatus(distinctStatuses.get(row - 1));
                 }
-
             }
         }
-
         return result;
     }
 
@@ -106,7 +102,13 @@ public class TFLController {
         return count;
     }
 
-    private void findDistinctStatuses(){
-        distinctStatuses = (int) statuses.stream().distinct().count();
+    private void listDistinctStatuses() {
+        distinctStatuses = new ArrayList<>();
+        for (String s : statuses) {
+            if (!distinctStatuses.contains(s)) {
+                System.out.println("adding to list: " + s);
+                distinctStatuses.add(s);
+            }
+        }
     }
 }
