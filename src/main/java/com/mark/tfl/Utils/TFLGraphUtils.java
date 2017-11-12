@@ -11,12 +11,13 @@ public class TFLGraphUtils {
 
     private List<String> statuses;
     private List<String> distinctStatuses;
+    private Object[][] result;
 
-    public Object[][] populateChart(List<String> statuses) {
-        this.statuses = statuses;
+    public Object[][] populateChart(List<String> lineStatuses) {
+        statuses = lineStatuses;
         listDistinctStatuses();
         int rows = distinctStatuses.size() + 1, columns = 2;
-        Object[][] result = new Object[rows][columns];
+        result = new Object[rows][columns];
 
         result[0][0] = "Status";
         result[0][1] = "Frequency";
