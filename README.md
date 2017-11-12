@@ -9,8 +9,6 @@ To run it as an ordinary Spring Boot app run the main method in the Application.
 
 Uses a local Mongo DB with default port (27017) so ensure Mongo is running locally before starting application.
 
-New endpoint added to view the history of a given line based on local mongo data __localhost:8080/linehistory?linename=Metropolitan__
-
 
 **TFL APIs**
 
