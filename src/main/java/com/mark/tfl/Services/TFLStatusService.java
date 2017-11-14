@@ -22,22 +22,21 @@ public class TFLStatusService {
     private TFLMongoRepo tflRepository;
 
     private static final Logger log = LoggerFactory.getLogger(TFLStatusService.class);
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();;
     private List<TFLLineStatus> allLineStatuses;
-    private List<TFLLineStatus> linesWithIssues;
-    private List<TFLResponse> tflRawLineStatuses;
-    private List<TFLLineHistoryObject> lineHistories;
+    private List<TFLLineStatus> linesWithIssues  = new ArrayList<>();
+    private List<TFLResponse> tflRawLineStatuses = new ArrayList<>();
 
-//    TODO: Don't cache stuff in memory, refer to DB (be stateless)
     @Autowired
     public TFLStatusService(TFLMongoRepo tflRepository) {
         this.tflRepository = tflRepository;
-        objectMapper = new ObjectMapper();
-        linesWithIssues = new ArrayList<>();
-        tflRawLineStatuses = new ArrayList<>();
-        allLineStatuses = new ArrayList<>();
-        lineHistories = new ArrayList<>();
     }
+
+    @Autowired
+    private TimeUtility timeUtility;
+
+    @Autowired
+    private TFLServiceHIstoryUtils tflServiceHIstoryUtils;
 
     @PostConstruct
     public void initialCall() {
@@ -46,7 +45,6 @@ public class TFLStatusService {
 
     public void scheduleAPICall() {
         log.info("Updating local data on tube statuses...");
-//        TODO: Commenting out to prevent making more calls to TFL
         runAllStatusChecks();
         log.info("Update complete");
     }
@@ -55,26 +53,19 @@ public class TFLStatusService {
         callTFLEndpoint();
         getAllLineStatuses();
         getLinesWithIssues();
+//        Comment below line out to prevent saving all results during testing
 //        saveToMongo();
     }
 
     private void saveToMongo() {
-        String currentDateAndTime = TimeUtility.getCurrentDateAndTimeAsString();
+        String currentDateAndTime = timeUtility.getCurrentDateAndTimeAsString();
         TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, allLineStatuses);
         log.info("Saving to mongo...");
         tflRepository.save(mongoTFLObject);
     }
 
-    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName) {
-        lineHistories.clear();
-        tflRepository.findAll()
-                .forEach(tflMongoObject -> tflMongoObject.getStatusList()
-                        .forEach(tflLineStatus -> {
-                            if (tflLineStatus.getLineName().contains(lineName)) {
-                                lineHistories.add(new TFLLineHistoryObject(tflMongoObject.getTime(), tflLineStatus.getLineName(), tflLineStatus.getLineStatus()));
-                            }
-                        }));
-        return lineHistories;
+    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName){
+        return tflServiceHIstoryUtils.getLineStatusHistoryFromMongo(lineName);
     }
 
     public List<String> getLineStatusesForLine(String lineName) {
@@ -92,20 +83,16 @@ public class TFLStatusService {
         return statuses;
     }
 
-    public long getHistoryCount() {
-        return lineHistories.size();
+    public long getHistoryCount(String lineName) {
+        return tflServiceHIstoryUtils.getLineStatusHistoryFromMongo(lineName).size();
     }
 
-    public long getGoodHistoryCount() {
-        return lineHistories.stream()
-                .filter(status -> "Good Service".equals(status.getLineStatus()))
-                .count();
+    public long getGoodHistoryCount(String lineName) {
+        return tflServiceHIstoryUtils.getGoodHistoryCount(lineName);
     }
 
-    public long getNotGoodHistoryCount() {
-        return lineHistories.stream()
-                .filter(status -> !"Good Service".equals(status.getLineStatus()))
-                .count();
+    public long getNotGoodHistoryCount(String lineName) {
+        return tflServiceHIstoryUtils.getNotGoodHistoryCount(lineName);
     }
 
     private void callTFLEndpoint() {

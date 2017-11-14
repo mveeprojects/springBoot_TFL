@@ -21,9 +21,9 @@ class HistoryStatsObject {
     HistoryStatsObject(String lineName, TFLStatusService tflStatusService) {
         this.tflStatusService = tflStatusService;
         lineHistory = this.tflStatusService.getLineStatusHistoryFromMongo(lineName);
-        this.historyCount = this.tflStatusService.getHistoryCount();
-        this.goodHistoryCount = this.tflStatusService.getGoodHistoryCount();
-        this.notGoodHistoryCount = this.tflStatusService.getNotGoodHistoryCount();
+        this.historyCount = this.tflStatusService.getHistoryCount(lineName);
+        this.goodHistoryCount = this.tflStatusService.getGoodHistoryCount(lineName);
+        this.notGoodHistoryCount = this.tflStatusService.getNotGoodHistoryCount(lineName);
         this.percentageUptime = getPercentage(historyCount, goodHistoryCount);
         this.statuses = this.tflStatusService.getLineStatusesForLine(lineName);
     }

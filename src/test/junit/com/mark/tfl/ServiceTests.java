@@ -3,6 +3,7 @@ package com.mark.tfl;
 import com.mark.tfl.Models.TFLMongoRepo;
 import com.mark.tfl.Models.TFLLineStatus;
 import com.mark.tfl.Services.TFLStatusService;
+import com.mark.tfl.Utils.TimeUtility;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
-import static com.mark.tfl.Utils.TimeUtility.getCurrentTimeAsString;
 import static java.util.Collections.emptyList;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +26,9 @@ public class ServiceTests {
 
     @InjectMocks
     private TFLStatusService tflStatusService;
+
+    @InjectMocks
+    private TimeUtility timeUtility;
 
     @Test
     public void refreshLineStatusesTest(){
@@ -48,7 +51,7 @@ public class ServiceTests {
 
     @Test
     public void checkTimeTest(){
-        String actual = getCurrentTimeAsString();
+        String actual = timeUtility.getCurrentTimeAsString();
         LocalTime time = LocalTime.now();
         String expected = time.format(DateTimeFormatter.ofPattern("h:mm a"));
 

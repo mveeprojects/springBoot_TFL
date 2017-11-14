@@ -1,13 +1,12 @@
 package com.mark.tfl.Services;
 
 import com.mark.tfl.Controllers.TFLController;
+import com.mark.tfl.Utils.TimeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import static com.mark.tfl.Utils.TimeUtility.getCurrentTimeAsString;
 
 @Component
 public class SchedulingService {
@@ -21,9 +20,12 @@ public class SchedulingService {
         this.tflController = tflController;
     }
 
+    @Autowired
+    private TimeUtility timeUtility;
+
     @Scheduled(cron = "0 */30 * * * *")
     public void reportCurrentTime() {
-        String time = getCurrentTimeAsString();
+        String time = timeUtility.getCurrentTimeAsString();
         log.info("SchedulingService - " + time);
         tflController.lastScheduledRuntime(time);
     }
