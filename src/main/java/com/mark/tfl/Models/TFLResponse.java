@@ -19,7 +19,7 @@ public class TFLResponse {
         return name;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         Map<String, Object> map = lineStatuses.get(0);
         return String.valueOf(map.get("statusSeverityDescription"));
     }

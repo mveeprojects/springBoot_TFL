@@ -13,15 +13,15 @@ public class TimeUtility {
         return getCurrentLocalTime().format(DateTimeFormatter.ofPattern("h:mm a"));
     }
 
-    public String getCurrentDateAndTimeAsString(){
+    public String getCurrentDateAndTimeAsString() {
         return getCurrentLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a"));
     }
 
-    private LocalTime getCurrentLocalTime(){
+    private LocalTime getCurrentLocalTime() {
         return LocalTime.now();
     }
 
-    private LocalDateTime getCurrentLocalDateTime(){
+    private LocalDateTime getCurrentLocalDateTime() {
         return LocalDateTime.now();
     }
 
