@@ -1,6 +1,5 @@
 package com.mark.tfl.Controllers;
 
-import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
 import com.mark.tfl.Utils.TFLGraphUtils;
 import org.slf4j.Logger;
@@ -11,17 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
-import static com.mark.tfl.Utils.MathUtils.getPercentage;
-
 @Controller
 public class TFLController {
 
     private static final Logger log = LoggerFactory.getLogger(TFLController.class);
-    private long historyCount, goodHistoryCount, notGoodHistoryCount;
-    private double percentageUptime;
-    private List<String> statuses;
 
     @Autowired
     private TFLStatusService tflStatusService;
@@ -52,27 +44,16 @@ public class TFLController {
 
     @RequestMapping("/linehistory")
     public String lineHistory(@RequestParam("linename") String lineName, Model model) {
-        List<TFLLineHistoryObject> lineHistory = tflStatusService.getLineStatusHistoryFromMongo(lineName);
-        updateVariables(lineName);
-        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
+        HistoryStatsObject historyStatsObject = new HistoryStatsObject(lineName, tflStatusService);
         model.addAttribute("heading", "Status history of the " + lineName + " line");
-        model.addAttribute("history", lineHistory);
-        model.addAttribute("total_count", "Total number of searches: " + historyCount);
-        model.addAttribute("good_count", "Good Service: " + goodHistoryCount);
-        model.addAttribute("not_good_count", "Other: " + notGoodHistoryCount);
-        model.addAttribute("percentage_uptime", "Percentage uptime: " + percentageUptime + "%");
+        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
+        model.addAttribute("history", historyStatsObject.getLineHistory());
+        model.addAttribute("total_count", "Total number of searches: " + historyStatsObject.getHistoryCount());
+        model.addAttribute("good_count", "Good Service: " + historyStatsObject.getGoodHistoryCount());
+        model.addAttribute("not_good_count", "Other: " + historyStatsObject.getNotGoodHistoryCount());
+        model.addAttribute("percentage_uptime", "Percentage uptime: " + historyStatsObject.getPercentageUptime() + "%");
         model.addAttribute("lineName", lineName);
-        model.addAttribute("mapsList", TFLGraphUtils.populateChart(statuses));
+        model.addAttribute("mapsList", TFLGraphUtils.populateChart(historyStatsObject.getStatuses()));
         return "line_history";
-    }
-
-//    TODO: Replace with new object
-//    TODO: Do not use local (shared) variables
-    private void updateVariables(String lineName) {
-        historyCount = tflStatusService.getHistoryCount();
-        goodHistoryCount = tflStatusService.getGoodHistoryCount();
-        notGoodHistoryCount = tflStatusService.getNotGoodHistoryCount();
-        percentageUptime = getPercentage(historyCount, goodHistoryCount);
-        statuses = tflStatusService.getLineStatusesForLine(lineName);
     }
 }
