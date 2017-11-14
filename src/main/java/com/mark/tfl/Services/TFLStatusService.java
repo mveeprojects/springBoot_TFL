@@ -28,6 +28,7 @@ public class TFLStatusService {
     private List<TFLResponse> tflRawLineStatuses;
     private List<TFLLineHistoryObject> lineHistories;
 
+//    TODO: Don't cache stuff in memory, refer to DB (be stateless)
     @Autowired
     public TFLStatusService(TFLMongoRepo tflRepository) {
         this.tflRepository = tflRepository;

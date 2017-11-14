@@ -66,6 +66,8 @@ public class TFLController {
         return "line_history";
     }
 
+//    TODO: Replace with new object
+//    TODO: Do not use local (shared) variables
     private void updateVariables(String lineName) {
         historyCount = tflStatusService.getHistoryCount();
         goodHistoryCount = tflStatusService.getGoodHistoryCount();
