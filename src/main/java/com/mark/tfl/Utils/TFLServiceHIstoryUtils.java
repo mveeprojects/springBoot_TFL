@@ -1,7 +1,7 @@
-package com.mark.tfl.Services;
+package com.mark.tfl.Utils;
 
 import com.mark.tfl.Models.TFLLineHistoryObject;
-import com.mark.tfl.Models.TFLLineStatus;
+import com.mark.tfl.Models.TFLLineStatusObject;
 import com.mark.tfl.Models.TFLMongoObject;
 import com.mark.tfl.Models.TFLMongoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class TFLServiceHIstoryUtils {
     private String lineName;
     private List<TFLLineHistoryObject> lineHistories;
 
-    List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName) {
+    public List<TFLLineHistoryObject> getLineStatusHistoryFromMongo(String lineName) {
         this.lineName = lineName;
         lineHistories = new ArrayList<>();
         tflMongoRepo.findAll()
@@ -33,14 +33,14 @@ public class TFLServiceHIstoryUtils {
         return lineHistories;
     }
 
-    long getGoodHistoryCount(String lineName) {
+    public long getGoodHistoryCount(String lineName) {
         checkLineStatusesStoredAlready(lineName);
         return lineHistories.stream()
                 .filter(status -> "Good Service".equals(status.getLineStatus()))
                 .count();
     }
 
-    long getNotGoodHistoryCount(String lineName) {
+    public long getNotGoodHistoryCount(String lineName) {
         checkLineStatusesStoredAlready(lineName);
         return lineHistories.stream()
                 .filter(status -> !"Good Service".equals(status.getLineStatus()))
@@ -53,12 +53,12 @@ public class TFLServiceHIstoryUtils {
         }
     }
 
-    List<String> getLineStatusesForLine(String lineName) {
+    public List<String> getLineStatusesForLine(String lineName) {
         List<String> statuses = new ArrayList<>();
         for (TFLMongoObject mongoObject : tflMongoRepo.findAll()) {
-            for (TFLLineStatus tflLineStatus : mongoObject.getStatusList()) {
-                if (Objects.equals(tflLineStatus.getLineName(), lineName)) {
-                    statuses.add(tflLineStatus.getLineStatus());
+            for (TFLLineStatusObject tflLineStatusObject : mongoObject.getStatusList()) {
+                if (Objects.equals(tflLineStatusObject.getLineName(), lineName)) {
+                    statuses.add(tflLineStatusObject.getLineStatus());
                 }
             }
         }

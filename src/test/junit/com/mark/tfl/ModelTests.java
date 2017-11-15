@@ -1,7 +1,7 @@
 package com.mark.tfl;
 
 import com.mark.tfl.Models.TFLMongoRepo;
-import com.mark.tfl.Models.TFLLineStatus;
+import com.mark.tfl.Models.TFLLineStatusObject;
 import com.mark.tfl.Models.TFLMongoObject;
 import com.mark.tfl.Services.TFLStatusService;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class ModelTests {
 
-    private TFLLineStatus lineStatus = new TFLLineStatus("testline", "teststatus");
+    private TFLLineStatusObject lineStatus = new TFLLineStatusObject("testline", "teststatus");
 
     private TFLMongoObject mongoTFLObject = new TFLMongoObject("testtime", Arrays.asList(lineStatus));
 
@@ -33,7 +33,7 @@ public class ModelTests {
     public void newLineStatusTest() {
         String expectedLine = "sampleLine";
         String expectedStatus = "sampleStatus";
-        TFLLineStatus lineStatus = new TFLLineStatus(expectedLine, expectedStatus);
+        TFLLineStatusObject lineStatus = new TFLLineStatusObject(expectedLine, expectedStatus);
         String linename = lineStatus.getLineName();
         String linestatus = lineStatus.getLineStatus();
         assertEquals(expectedLine, linename);
@@ -50,11 +50,11 @@ public class ModelTests {
 
     @Test
     public void nightTubeTest(){
-        TFLLineStatus lineStatus = new TFLLineStatus("Victoria", "testStatus");
+        TFLLineStatusObject lineStatus = new TFLLineStatusObject("Victoria", "testStatus");
         boolean actual = lineStatus.isNightTube();
         assertEquals(true, actual);
 
-        lineStatus = new TFLLineStatus("Metropolitan", "testStatus");
+        lineStatus = new TFLLineStatusObject("Metropolitan", "testStatus");
         boolean actual1 = lineStatus.isNightTube();
         assertEquals(false, actual1);
     }

@@ -1,5 +1,6 @@
 package com.mark.tfl.Controllers;
 
+import com.mark.tfl.Models.HistoryStatsObject;
 import com.mark.tfl.Services.TFLStatusService;
 import com.mark.tfl.Utils.TFLGraphUtils;
 import org.slf4j.Logger;

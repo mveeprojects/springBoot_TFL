@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TFLResponse {
+public class TFLRawResponseObject {
 
     @JsonProperty("name")
     private String name;

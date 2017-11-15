@@ -1,4 +1,4 @@
-package com.mark.tfl.Controllers;
+package com.mark.tfl.Models;
 
 import com.mark.tfl.Models.TFLLineHistoryObject;
 import com.mark.tfl.Services.TFLStatusService;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
 
-class HistoryStatsObject {
+public class HistoryStatsObject {
 
     private TFLStatusService tflStatusService;
 
@@ -18,7 +18,7 @@ class HistoryStatsObject {
     private List<String> statuses;
 
     @Autowired
-    HistoryStatsObject(String lineName, TFLStatusService tflStatusService) {
+    public HistoryStatsObject(String lineName, TFLStatusService tflStatusService) {
         this.tflStatusService = tflStatusService;
         lineHistory = this.tflStatusService.getLineStatusHistoryFromMongo(lineName);
         this.historyCount = this.tflStatusService.getHistoryCount(lineName);
@@ -28,27 +28,27 @@ class HistoryStatsObject {
         this.statuses = this.tflStatusService.getLineStatusesForLine(lineName);
     }
 
-    List<TFLLineHistoryObject> getLineHistory() {
+    public List<TFLLineHistoryObject> getLineHistory() {
         return lineHistory;
     }
 
-    long getHistoryCount() {
+    public long getHistoryCount() {
         return historyCount;
     }
 
-    long getGoodHistoryCount() {
+    public long getGoodHistoryCount() {
         return goodHistoryCount;
     }
 
-    long getNotGoodHistoryCount() {
+    public long getNotGoodHistoryCount() {
         return notGoodHistoryCount;
     }
 
-    double getPercentageUptime() {
+    public double getPercentageUptime() {
         return percentageUptime;
     }
 
-    List<String> getStatuses() {
+    public List<String> getStatuses() {
         return statuses;
     }
 }

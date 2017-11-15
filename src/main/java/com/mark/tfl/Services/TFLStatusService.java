@@ -3,6 +3,8 @@ package com.mark.tfl.Services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mark.tfl.Models.*;
+import com.mark.tfl.Utils.TFLEndpointDataUtils;
+import com.mark.tfl.Utils.TFLServiceHIstoryUtils;
 import com.mark.tfl.Utils.TimeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +89,7 @@ public class TFLStatusService {
 
     private void callTFLEndpoint() {
         try {
-            tflEndpointDataUtils.setTflRawLineStatuses(objectMapper.readValue(url, new TypeReference<List<TFLResponse>>() {
+            tflEndpointDataUtils.setTflRawLineStatuses(objectMapper.readValue(url, new TypeReference<List<TFLRawResponseObject>>() {
             }));
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,16 +104,16 @@ public class TFLStatusService {
         tflEndpointDataUtils.setLinesWithIssues();
     }
 
-    public List<TFLLineStatus> getLineStatuses() {
-        List<TFLLineStatus> lineStatuses = tflEndpointDataUtils.getAllLineStatuses();
+    public List<TFLLineStatusObject> getLineStatuses() {
+        List<TFLLineStatusObject> lineStatuses = tflEndpointDataUtils.getAllLineStatuses();
         if (lineStatuses == null) {
             scheduleAPICall();
         }
         return lineStatuses;
     }
 
-    public List<TFLLineStatus> getLineIssues() {
-        List<TFLLineStatus> lineStatusesIssues = tflEndpointDataUtils.getLinesWithIssues();
+    public List<TFLLineStatusObject> getLineIssues() {
+        List<TFLLineStatusObject> lineStatusesIssues = tflEndpointDataUtils.getLinesWithIssues();
         if (lineStatusesIssues == null) {
             scheduleAPICall();
         }

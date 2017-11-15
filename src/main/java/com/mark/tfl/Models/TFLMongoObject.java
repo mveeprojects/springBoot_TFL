@@ -12,14 +12,14 @@ public class TFLMongoObject {
     @Id
     private String id;
     private String time;
-    private List<TFLLineStatus> statusList;
+    private List<TFLLineStatusObject> statusList;
 
-    public TFLMongoObject(String time, List<TFLLineStatus> statusList) {
+    public TFLMongoObject(String time, List<TFLLineStatusObject> statusList) {
         this.time = time;
         this.statusList = statusList;
     }
 
-    public List<TFLLineStatus> getStatusList() {
+    public List<TFLLineStatusObject> getStatusList() {
         return statusList;
     }
 
