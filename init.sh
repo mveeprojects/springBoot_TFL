@@ -34,6 +34,8 @@ echo "*************************************************************"
 #docker run -d -p80:8080 -p49155:27017 --name tflapp --network=host ${IMAGEID}
 docker run -d -p80:8080 --name tflapp ${IMAGEID}
 echo ""
+#requires mongodb container
+#docker run -d -p27017:27017 --name mongodb mongo:latest
 
 
 echo ""

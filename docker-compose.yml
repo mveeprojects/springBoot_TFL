@@ -1,0 +1,21 @@
+version: "2"
+services:
+  app:
+    container_name: tfl_app
+    build: .
+    ports:
+      - "80:8080"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+
+#      To run with 'docker-compose up':
+#      Need to rename .docker dir, and
+#      Set set docker certificate path as blank 'export DOCKER_CERT_PATH='
+#      Times out (connection refused) still on
