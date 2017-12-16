@@ -27,6 +27,6 @@ public class SchedulingService {
     public void reportCurrentTime() {
         String time = timeUtility.getCurrentTimeAsString();
         log.info("SchedulingService - " + time);
-        tflController.lastScheduledRuntime(time);
+        tflController.scheduledDataRefresh(time);
     }
 }

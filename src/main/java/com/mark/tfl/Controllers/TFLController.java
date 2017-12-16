@@ -22,13 +22,22 @@ public class TFLController {
     @Autowired
     private TFLGraphUtils TFLGraphUtils;
 
-    public void lastScheduledRuntime(String time) {
+    public void scheduledDataRefresh(String time) {
         log.info("TFLController - " + time);
         tflStatusService.scheduleAPICall();
     }
 
     @RequestMapping("/")
     public String homeController(Model model) {
+        model.addAttribute("title", "Home");
+        model.addAttribute("tablecontent", tflStatusService.getLineStatuses());
+        model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());
+        return "index";
+    }
+
+    @RequestMapping("/manualRefresh")
+    public String manualRefresh(Model model) {
+        tflStatusService.runManualStatusChecks();
         model.addAttribute("title", "Home");
         model.addAttribute("tablecontent", tflStatusService.getLineStatuses());
         model.addAttribute("dropdowncontent", tflStatusService.getLineStatuses());

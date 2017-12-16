@@ -60,6 +60,13 @@ public class TFLStatusService {
 //        saveToMongo();
     }
 
+    public void runManualStatusChecks() {
+        callTFLEndpoint();
+        runAllLineStatusesCheck();
+        runLinesWithIssuesCheck();
+        saveToMongo();
+    }
+
     private void saveToMongo() {
         String currentDateAndTime = timeUtility.getCurrentDateAndTimeAsString();
         TFLMongoObject mongoTFLObject = new TFLMongoObject(currentDateAndTime, tflEndpointDataUtils.getAllLineStatuses());
