@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,11 +40,6 @@ public class TFLStatusService {
     @Autowired
     private TFLEndpointDataUtils tflEndpointDataUtils;
 
-    @PostConstruct
-    public void initialCall() {
-        scheduleAPICall();
-    }
-
     public void scheduleAPICall() {
         log.info("Updating local data on tube statuses...");
         runAllStatusChecks();
@@ -56,7 +50,6 @@ public class TFLStatusService {
         callTFLEndpoint();
         runAllLineStatusesCheck();
         runLinesWithIssuesCheck();
-//        Comment below line out to prevent saving all results during testing
         saveToMongo();
     }
 
