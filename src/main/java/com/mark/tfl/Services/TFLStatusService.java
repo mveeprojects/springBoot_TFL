@@ -56,7 +56,6 @@ public class TFLStatusService {
         callTFLEndpoint();
         runAllLineStatusesCheck();
         runLinesWithIssuesCheck();
-//        Comment below line out to prevent saving all results during testing
         saveToMongo();
     }
 
