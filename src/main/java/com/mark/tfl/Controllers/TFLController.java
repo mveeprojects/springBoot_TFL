@@ -63,7 +63,7 @@ public class TFLController {
         model.addAttribute("not_good_count", "Other: " + historyStatsObject.getNotGoodHistoryCount());
         model.addAttribute("percentage_uptime", "Percentage uptime: " + historyStatsObject.getPercentageUptime() + "%");
         model.addAttribute("lineName", lineName);
-        model.addAttribute("mapsList", TFLGraphUtils.populateChart(historyStatsObject.getStatuses()));
+        model.addAttribute("mapsList", TFLGraphUtils.populateStatusGraphs(historyStatsObject.getStatuses()));
         return "line_history";
     }
 }
