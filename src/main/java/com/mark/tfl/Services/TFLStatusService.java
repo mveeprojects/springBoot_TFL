@@ -63,7 +63,6 @@ public class TFLStatusService {
         callTFLEndpoint();
         runAllLineStatusesCheck();
         runLinesWithIssuesCheck();
-        saveToMongo();
     }
 
     private void saveToMongo() {
