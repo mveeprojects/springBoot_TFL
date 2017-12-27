@@ -50,20 +50,26 @@ public class TFLGraphUtils {
         lineStatuses.add("Good Service");
         lineStatuses.add("Good Service");
         lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
+        lineStatuses.add("Part Closure");
         populateHistoricalLineChart(lineStatuses);
     }
 
-    private void populateHistoricalLineChart(List<String> lineStatuses) {
+    public Object[][] populateHistoricalLineChart(List<String> lineStatuses) {
         statuses1 = lineStatuses;
         listDistinctStatuses1();
         int rows = distinctStatuses1.size() + 1, columns = 3;
         result1 = new Object[rows][columns];
 
-        result1[0][0] = "Month";
+//        result1[0][0] = "Month";
         result1[1][0] = "February";
         result1[2][0] = "March   ";
-        result1[0][1] = "Status";
-        result1[0][2] = "Frequency";
+//        result1[0][1] = "Status";
+//        result1[0][2] = "Frequency";
 
         IntStream.range(1, rows)
                 .forEach(r -> IntStream.range(1, columns)
@@ -76,12 +82,14 @@ public class TFLGraphUtils {
                         })
                 );
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.print(result1[i][j] + "\t\t\t");
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < columns; j++) {
+//                System.out.print(result1[i][j] + "\t\t\t");
+//            }
+//            System.out.println();
+//        }
+
+        return result1;
     }
 
     private int findFrequencyOfStatus(String statusType) {

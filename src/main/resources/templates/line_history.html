@@ -17,16 +17,38 @@
       function drawChart() {
         var d = [[${mapsList}]];
         var data = google.visualization.arrayToDataTable(d);
+
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('number', 'Month');
+        data1.addColumn('number', 'Good Service');
+        data1.addColumn('number', 'Part Closure');
+        data1.addRows([
+            [1, 8, 4],
+            [2, 6, 2],
+            [3, 6, 12],
+            [4, 4, 18],
+            [5, 8, 3],
+            [6, 19, 6],
+            [7, 12, 7],
+            [8, 11, 12],
+            [9, 8, 14],
+            [10, 10, 2],
+            [11, 2, 6],
+            [12, 7, 4]
+        ]);
+
         var pie_options = {
           pieHole: 0.3
         };
         var bar_options = {
-          legend: {position: 'none'}
+          legend: {position: 'none'},
+          //curveType: 'function'
         };
+
         var pie_chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        var bar_chart = new google.visualization.BarChart(document.getElementById('barchart'));
+        var bar_chart = new google.visualization.LineChart(document.getElementById('barchart'));
         pie_chart.draw(data, pie_options);
-        bar_chart.draw(data, bar_options);
+        bar_chart.draw(data1, bar_options);
       }
     </script>
 </head>

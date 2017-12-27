@@ -43,7 +43,7 @@ public class TFLStatusService {
 
     @PostConstruct
     public void initialCall() {
-        scheduleAPICall();
+        //scheduleAPICall();
     }
 
     public void scheduleAPICall() {
@@ -56,7 +56,7 @@ public class TFLStatusService {
         callTFLEndpoint();
         runAllLineStatusesCheck();
         runLinesWithIssuesCheck();
-        saveToMongo();
+//        saveToMongo();
     }
 
     public void runManualStatusChecks() {
