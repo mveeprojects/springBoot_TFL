@@ -13,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertNotEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelTests {
@@ -43,8 +42,8 @@ public class ModelTests {
 //    public void newTFLResponseTest() {
 //        Mockito.when(tflRepository.save(mongoTFLObject)).thenReturn(mongoTFLObject);
 //        tflStatusService.scheduleAPICall();
-//        assertNotEquals(null, tflStatusService.getLineStatuses());
-//        assertNotEquals(null, tflStatusService.getLineIssues());
+//        Assert.assertNotSame("Line statuses assertion", null, tflStatusService.getLineStatuses());
+//        Assert.assertNotSame("Line issues assertion", null, tflStatusService.getLineIssues());
 //    }
 
     @Test

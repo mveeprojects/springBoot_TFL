@@ -28,26 +28,24 @@ public class ServiceTests {
     private TimeUtility timeUtility;
 
 //    @Test
-//    public void refreshLineStatusesTest(){
+//    public void refreshLineStatusesTest() {
 //        List<TFLLineStatusObject> oldStatuses = tflStatusService.getLineStatuses();
 //        tflStatusService.scheduleAPICall();
 //        List<TFLLineStatusObject> newStatuses = tflStatusService.getLineStatuses();
-//
-//        Assert.assertNotEquals(oldStatuses, newStatuses);
+//        Assert.assertNotSame("", oldStatuses, newStatuses);
 //    }
 
 //    @Test
-//    public void refreshLineIssuesTest(){
+//    public void refreshLineIssuesTest() {
 //        List<TFLLineStatusObject> oldIssues = tflStatusService.getLineIssues();
 //        tflStatusService.scheduleAPICall();
 //        List<TFLLineStatusObject> newIssues = tflStatusService.getLineIssues();
-//
 //        Assert.assertEquals(emptyList(), oldIssues);
-//        Assert.assertNotEquals(emptyList(), newIssues);
+//        Assert.assertNotSame("", emptyList(), newIssues);
 //    }
 
     @Test
-    public void checkTimeTest(){
+    public void checkTimeTest() {
         String actual = timeUtility.getCurrentTimeAsString();
         LocalTime time = LocalTime.now();
         String expected = time.format(DateTimeFormatter.ofPattern("h:mm a"));
@@ -56,7 +54,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void getPercentageTest(){
+    public void getPercentageTest() {
         double actual = getPercentage(101, 65);
         Assert.assertEquals(64.0, actual, 1);
     }
