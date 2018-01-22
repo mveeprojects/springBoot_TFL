@@ -1,7 +1,6 @@
 package com.mark.tfl;
 
 import com.mark.tfl.Models.TFLMongoRepo;
-import com.mark.tfl.Models.TFLLineStatusObject;
 import com.mark.tfl.Services.TFLStatusService;
 import com.mark.tfl.Utils.TimeUtility;
 import org.junit.Assert;
@@ -13,10 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static com.mark.tfl.Utils.MathUtils.getPercentage;
-import static java.util.Collections.emptyList;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceTests {
@@ -30,24 +27,24 @@ public class ServiceTests {
     @InjectMocks
     private TimeUtility timeUtility;
 
-    @Test
-    public void refreshLineStatusesTest(){
-        List<TFLLineStatusObject> oldStatuses = tflStatusService.getLineStatuses();
-        tflStatusService.scheduleAPICall();
-        List<TFLLineStatusObject> newStatuses = tflStatusService.getLineStatuses();
+//    @Test
+//    public void refreshLineStatusesTest(){
+//        List<TFLLineStatusObject> oldStatuses = tflStatusService.getLineStatuses();
+//        tflStatusService.scheduleAPICall();
+//        List<TFLLineStatusObject> newStatuses = tflStatusService.getLineStatuses();
+//
+//        Assert.assertNotEquals(oldStatuses, newStatuses);
+//    }
 
-        Assert.assertNotEquals(oldStatuses, newStatuses);
-    }
-
-    @Test
-    public void refreshLineIssuesTest(){
-        List<TFLLineStatusObject> oldIssues = tflStatusService.getLineIssues();
-        tflStatusService.scheduleAPICall();
-        List<TFLLineStatusObject> newIssues = tflStatusService.getLineIssues();
-
-        Assert.assertEquals(emptyList(), oldIssues);
-        Assert.assertNotEquals(emptyList(), newIssues);
-    }
+//    @Test
+//    public void refreshLineIssuesTest(){
+//        List<TFLLineStatusObject> oldIssues = tflStatusService.getLineIssues();
+//        tflStatusService.scheduleAPICall();
+//        List<TFLLineStatusObject> newIssues = tflStatusService.getLineIssues();
+//
+//        Assert.assertEquals(emptyList(), oldIssues);
+//        Assert.assertNotEquals(emptyList(), newIssues);
+//    }
 
     @Test
     public void checkTimeTest(){

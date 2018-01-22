@@ -13,7 +13,7 @@ echo ""
 echo "*************************************************************"
 echo "Compiling application and building Docker image"
 echo "*************************************************************"
-mvn clean install docker:build
+./mvnw clean install docker:build
 echo ""
 
 images=`docker images`

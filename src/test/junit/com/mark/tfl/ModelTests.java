@@ -1,20 +1,19 @@
 package com.mark.tfl;
 
-import com.mark.tfl.Models.TFLMongoRepo;
 import com.mark.tfl.Models.TFLLineStatusObject;
 import com.mark.tfl.Models.TFLMongoObject;
+import com.mark.tfl.Models.TFLMongoRepo;
 import com.mark.tfl.Services.TFLStatusService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+//import static org.junit.Assert.assertNotEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelTests {
@@ -40,13 +39,13 @@ public class ModelTests {
         assertEquals(expectedStatus, linestatus);
     }
 
-    @Test
-    public void newTFLResponseTest() {
-        Mockito.when(tflRepository.save(mongoTFLObject)).thenReturn(mongoTFLObject);
-        tflStatusService.scheduleAPICall();
-        assertNotEquals(null, tflStatusService.getLineStatuses());
-        assertNotEquals(null, tflStatusService.getLineIssues());
-    }
+//    @Test
+//    public void newTFLResponseTest() {
+//        Mockito.when(tflRepository.save(mongoTFLObject)).thenReturn(mongoTFLObject);
+//        tflStatusService.scheduleAPICall();
+//        assertNotEquals(null, tflStatusService.getLineStatuses());
+//        assertNotEquals(null, tflStatusService.getLineIssues());
+//    }
 
     @Test
     public void nightTubeTest(){
