@@ -21,6 +21,12 @@ https://api.tfl.gov.uk/line/mode/tube/status
 
 **Note: Deploying this application via Docker is considered 'prod mode' therefore the port used to access it via HTTP is 80 rather than 8080 in 'dev mode' above (considered dev mode if running in the IDE via run config etc.).**
 
+To run this project via IntelliJ you will need a locally running Mongo server, on Mac you use brew as required:
+* brew tap mongodb/brew
+* brew install mongodb-community@3.2
+* brew services start mongodb-community@3.2
+* brew services stop mongodb-community@3.2
+
 Currently figuring out a bug with docker and using local Mongo persistence so as a temporary workaround, in order to deploy via docker complete the following steps first:
 * Open Services/TFLStatusService.java
 * Comment out the call to __saveToMongo();__ in the __runAllStatusChecks()__ method
